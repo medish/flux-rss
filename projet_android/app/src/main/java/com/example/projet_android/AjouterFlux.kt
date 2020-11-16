@@ -17,7 +17,7 @@ class AjouterFlux : AppCompatActivity() {
 
         if (button == findViewById(R.id.ajouter) && s.text.toString().trim() != "" && t.text.toString().trim()!="" && u.text.toString().trim()!="") {
             val f : Flux
-            f = Flux(1,s.text.toString().trim(),t.text.toString().trim(),u.text.toString().trim())
+            f= Flux(0,s.text.toString().trim(),t.text.toString().trim(),u.text.toString().trim())
             var ls = listOf<Long>()
             ls = ajoutfluxmodel.ajouterFlux(f)
             Toast.makeText(this, ls.size.toString(), Toast.LENGTH_SHORT).show()

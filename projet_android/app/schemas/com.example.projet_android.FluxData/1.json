@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1475d8780dd19a35d94ab7813e51de2b",
+    "identityHash": "a485267faf4f3c7d85938fceef59e00a",
     "entities": [
       {
         "tableName": "Flux",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `source` TEXT NOT NULL, `tag` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `source` TEXT NOT NULL, `tag` TEXT NOT NULL, `url` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -37,7 +37,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -46,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1475d8780dd19a35d94ab7813e51de2b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a485267faf4f3c7d85938fceef59e00a')"
     ]
   }
 }
