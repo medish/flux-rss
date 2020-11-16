@@ -7,10 +7,9 @@ import java.net.URL
 
 @Entity
 data class Flux(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    @PrimaryKey
+    var url: String,
 
     var source: String,
-    var tag: String,
-    var url: String
+    var tag: String
 )
