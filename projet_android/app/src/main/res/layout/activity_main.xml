@@ -30,5 +30,15 @@
         android:text="AjouterFlux"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center"
+        android:onClick="ListFlux"
+        android:paddingBottom="20dp"
+        android:text="ListerFlux"
+        />
+
 
 </LinearLayout>

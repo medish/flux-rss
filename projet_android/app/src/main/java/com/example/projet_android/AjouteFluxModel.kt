@@ -9,7 +9,24 @@ import androidx.lifecycle.LiveData
 class AjouteFluxModel(application: Application) : AndroidViewModel(application) {
     val db : FluxData by lazy{ FluxData.getInstance( application )}
 
-    val allPays: LiveData<List<Flux>> by lazy{ db.Daoinsert.loadAllFlux() }
+    val allfluxs: LiveData<List<Flux>> by lazy{ db.Daoinsert.loadAllFlux() }
+
+     var lsF = emptyList<Flux>()
+
+    fun allflux():List<Flux>{
+        val tr = Thread{
+
+            try{
+                lsF = db.Daoinsert.loadAllFluxs()}
+            catch(e : SQLiteConstraintException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+
+        }
+        tr.start()
+        tr.join()
+        return lsF
+    }
 
     fun ajouterFlux(f: Flux): List<Long> {
 

@@ -15,6 +15,9 @@ interface UserDao {
     @Query("SELECT * FROM Flux")
     fun loadAllFlux(): LiveData<List<Flux>>
 
+    @Query("SELECT * FROM Flux")
+    fun loadAllFluxs(): List<Flux>
+
     @Query("SELECT * FROM Flux WHERE source= :nom")
     fun loadFlux(nom:String): LiveData<List<Flux>>
 
