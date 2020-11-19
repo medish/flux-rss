@@ -2,6 +2,7 @@ package com.example.projet_android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,8 @@ class ListInfo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_info)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //just a test
         val i : Info
@@ -30,4 +33,14 @@ class ListInfo : AppCompatActivity() {
         recyclerViewAdapter.setListInfo(lsinfo)
         recyclerView.adapter = recyclerViewAdapter
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when( item.itemId ){
+            android.R.id.home     -> { finish() }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

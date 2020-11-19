@@ -1,7 +1,9 @@
 package com.example.projet_android
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +19,8 @@ class ListFlux : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_flux)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
         lsFlux = ajoutfluxmodel.allflux()
 
@@ -27,9 +31,15 @@ class ListFlux : AppCompatActivity() {
         recyclerView.adapter = recyclerViewAdapter
 
        // ajoutfluxmodel.allfluxs.observe(this, Observer {recyclerViewAdapter.setListFlux(it)})
-
-
-
-
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when( item.itemId ){
+            android.R.id.home     -> { finish() }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

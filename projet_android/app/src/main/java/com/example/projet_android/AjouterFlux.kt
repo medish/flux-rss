@@ -1,7 +1,9 @@
 package com.example.projet_android
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -10,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 
 class AjouterFlux : AppCompatActivity() {
     private lateinit var ajoutfluxmodel: AjouteFluxModel
+
     fun ajouter(button:View){
+
         val s: EditText = findViewById(R.id.SOURCE)
         val t: EditText = findViewById(R.id.TAG)
         val u: EditText = findViewById(R.id.URL)
@@ -30,9 +34,22 @@ class AjouterFlux : AppCompatActivity() {
         }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajouter_flux)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when( item.itemId ){
+            android.R.id.home     -> { finish() }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
