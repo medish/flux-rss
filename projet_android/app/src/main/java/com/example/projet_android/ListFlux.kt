@@ -20,6 +20,7 @@ class ListFlux : AppCompatActivity() {
         ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
         lsFlux = ajoutfluxmodel.allflux()
 
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerViewAdapter.setListFlux(lsFlux)

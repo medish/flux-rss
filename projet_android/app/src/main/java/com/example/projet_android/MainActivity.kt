@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity() {
         val aj = Intent(this, ListFlux::class.java)
         startActivity(aj)
     }
+
+    fun ListInfo(button:View){
+        val aj = Intent(this, ListInfo::class.java)
+        startActivity(aj)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

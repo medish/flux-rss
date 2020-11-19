@@ -18,10 +18,13 @@ interface UserDao {
     @Query("SELECT * FROM Flux")
     fun loadAllFluxs(): List<Flux>
 
+
     @Query("SELECT * FROM Flux WHERE source= :nom")
     fun loadFlux(nom:String): LiveData<List<Flux>>
 
+
     @Query("DELETE  FROM Flux WHERE source = :nom")
     fun DeleteFlux(nom:String)
+
 }
 
