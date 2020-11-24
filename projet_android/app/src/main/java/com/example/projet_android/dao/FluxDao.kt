@@ -1,16 +1,17 @@
-package com.example.projet_android
+package com.example.projet_android.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.projet_android.entities.Flux
 
 @Dao
-interface UserDao {
+interface FluxDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insertFlux(vararg flux: Flux ) : List<Long>
+    fun insertFlux(vararg flux: Flux) : List<Long>
 
     @Query("SELECT * FROM Flux")
     fun loadAllFlux(): LiveData<List<Flux>>

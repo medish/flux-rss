@@ -1,13 +1,15 @@
-package com.example.projet_android
+package com.example.projet_android.models
 
 import android.app.Application
 import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.example.projet_android.entities.Info
+import com.example.projet_android.InfoData
 
 class InfoModel(application: Application) : AndroidViewModel(application) {
-    val db : InfoData by lazy{ InfoData.getInstance( application )}
+    val db : InfoData by lazy{ InfoData.getInstance(application) }
 
     val allInfos: LiveData<List<Info>> by lazy{ db.Daoinsert.loadAllInfo() }
 

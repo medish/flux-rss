@@ -1,6 +1,5 @@
-package com.example.projet_android
+package com.example.projet_android.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +7,9 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.projet_android.entities.Flux
+import com.example.projet_android.R
+import com.example.projet_android.models.AjouteFluxModel
 
 
 class AjouterFlux : AppCompatActivity() {

@@ -1,36 +1,41 @@
-package com.example.projet_android
+package com.example.projet_android.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projet_android.entities.Info
+import com.example.projet_android.R
+import com.example.projet_android.adapters.InfoAdapter
+import com.example.projet_android.models.InfoModel
 
-class ListFlux : AppCompatActivity() {
-    private lateinit var ajoutfluxmodel: AjouteFluxModel
-    private val recyclerViewAdapter: FluxAdapter = FluxAdapter()
-    var lsFlux = emptyList<Flux>()
+class ListInfo : AppCompatActivity() {
+    private lateinit var infomodel: InfoModel
+    private val recyclerViewAdapter: InfoAdapter = InfoAdapter()
+    var lsinfo = emptyList<Info>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_flux)
+        setContentView(R.layout.activity_list_info)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
-        lsFlux = ajoutfluxmodel.allflux()
+        //just a test
+        val i : Info
+        i= Info("test","just a test","www.test.com",true,"www.test.com")
+
+        infomodel = ViewModelProvider(this).get(InfoModel::class.java)
+        infomodel.ajouterInfo(i)
+        lsinfo = infomodel.allInfo()
+
 
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerViewAdapter.setListFlux(lsFlux)
+        recyclerViewAdapter.setListInfo(lsinfo)
         recyclerView.adapter = recyclerViewAdapter
-
-       // ajoutfluxmodel.allfluxs.observe(this, Observer {recyclerViewAdapter.setListFlux(it)})
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
