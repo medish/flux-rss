@@ -1,11 +1,12 @@
-package com.example.projet_android
+package com.example.projet_android.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_layout.view.*
+import com.example.projet_android.entities.Info
+import com.example.projet_android.R
 import kotlinx.android.synthetic.main.item_layout2.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
@@ -21,7 +22,7 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
             .from(parent.getContext())
             .inflate(R.layout.item_layout2, parent,false)
 
-        return InfoAdapter.VH(v)
+        return VH(v)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {

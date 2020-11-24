@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.projet_android.dao.InfoDao
+import com.example.projet_android.entities.Info
 
 
 @Database(entities = arrayOf(Info::class ), version = 1)

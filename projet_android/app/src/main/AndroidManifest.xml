@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListInfo"></activity>
-        <activity android:name=".ListFlux" />
-        <activity android:name=".AjouterFlux" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.ListInfo"></activity>
+        <activity android:name=".activities.ListFlux" />
+        <activity android:name=".activities.AjouterFlux" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

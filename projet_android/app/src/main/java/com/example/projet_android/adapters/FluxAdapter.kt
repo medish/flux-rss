@@ -1,11 +1,12 @@
-package com.example.projet_android
+package com.example.projet_android.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projet_android.entities.Flux
+import com.example.projet_android.R
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class FluxAdapter: RecyclerView.Adapter<FluxAdapter.VH>() {

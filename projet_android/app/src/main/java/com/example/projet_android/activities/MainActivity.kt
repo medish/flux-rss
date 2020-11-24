@@ -1,4 +1,4 @@
-package com.example.projet_android
+package com.example.projet_android.activities
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import com.example.projet_android.R
 
 class MainActivity : AppCompatActivity() {
 
