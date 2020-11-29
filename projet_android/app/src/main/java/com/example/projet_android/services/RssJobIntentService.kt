@@ -25,7 +25,8 @@ class RssJobIntentService : JobIntentService() {
         try{
             val istream = contentResolver.openInputStream(Uri.parse(uri))
             val doc = RssXmlParser.xmlToDocument(istream)
-            RssXmlParser.analyseRssXml(doc)
+            val infoList = RssXmlParser.analyseRssXml(doc)
+           // TODO("add each info to table")
         }catch (e : FileNotFoundException){
             Log.e(TAG, e.message.toString())
         }

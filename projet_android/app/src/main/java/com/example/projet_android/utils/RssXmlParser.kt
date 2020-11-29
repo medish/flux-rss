@@ -1,5 +1,6 @@
 package com.example.projet_android.utils
 
+import com.example.projet_android.entities.Info
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.FileNotFoundException
@@ -25,32 +26,33 @@ class RssXmlParser{
         // Read elements
         // rss > title - atom:link - description - pubDate
         // item > title > link > description - pubDate - media-content(url)
-        fun analyseRssXml(document: Document?){
+        fun analyseRssXml(document: Document?): List<Info> {
+            // TODO("check null for item's elements")
+            // TODO("Add pubDate to info's table")
             if(document == null) throw FileNotFoundException("Document not found")
+
+            val infoList = mutableListOf<Info>()
             // rss feed
+            val atomLink = document.getElementsByTagName("atom:link").item(0)
+            val rssLink = atomLink.attributes.getNamedItem("href")
+
             // items
             val items = document.getElementsByTagName("item")
             for(i in 0 until items.length){
                 val item = items.item(i) as Element
-                // title
                 val title = item.getElementsByTagName("title").item(0)
-                //println(title?.textContent)
 
-                // link
                 val link = item.getElementsByTagName("link").item(0)
-                //println(link?.textContent)
 
-                // description
                 val description = item.getElementsByTagName("description").item(0)
-                //println(description?.textContent)
 
-                // publication date
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
-                //println(pubDate?.textContent)
+
+                val info = Info(title.textContent, description.textContent, link.textContent, true, rssLink.textContent)
+                infoList.add(info)
             }
 
-            println("File Parsed ****************")
-
+            return infoList.toList()
         }
     }
 }
