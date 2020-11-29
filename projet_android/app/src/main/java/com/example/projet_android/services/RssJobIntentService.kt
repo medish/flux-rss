@@ -2,9 +2,11 @@ package com.example.projet_android.services
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.core.app.JobIntentService
 import com.example.projet_android.utils.RssXmlParser
+import java.io.FileNotFoundException
 
 class RssJobIntentService : JobIntentService() {
     companion object {
@@ -17,11 +19,15 @@ class RssJobIntentService : JobIntentService() {
     }
 
     override fun onHandleWork(intent: Intent) {
-        val uri = intent.getStringExtra("uri")
+        val uri = intent.getStringExtra("uri") ?: ""
+        Log.d(TAG, uri)
 
-        if(uri != null) Log.d(TAG, uri)
-        //val istream = context.contentResolver.openInputStream(uri)
-        //val doc = RssXmlParser.xmlToDocument(istream)
-        //RssXmlParser.analyseRssXml(doc)
+        try{
+            val istream = contentResolver.openInputStream(Uri.parse(uri))
+            val doc = RssXmlParser.xmlToDocument(istream)
+            RssXmlParser.analyseRssXml(doc)
+        }catch (e : FileNotFoundException){
+            Log.e(TAG, e.message.toString())
+        }
     }
 }

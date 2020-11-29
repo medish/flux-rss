@@ -2,6 +2,7 @@ package com.example.projet_android.utils
 
 import org.w3c.dom.Document
 import org.w3c.dom.Element
+import java.io.FileNotFoundException
 import java.io.InputStream
 import java.lang.IllegalArgumentException
 import javax.xml.parsers.DocumentBuilderFactory
@@ -25,7 +26,7 @@ class RssXmlParser{
         // rss > title - atom:link - description - pubDate
         // item > title > link > description - pubDate - media-content(url)
         fun analyseRssXml(document: Document?){
-            if(document == null) throw IllegalArgumentException()
+            if(document == null) throw FileNotFoundException("Document not found")
             // rss feed
             // items
             val items = document.getElementsByTagName("item")
