@@ -36,7 +36,7 @@ class DownloadActivity : AppCompatActivity() {
         //val request = DownloadManager.Request(Uri.parse(URL))
         //val request2 = DownloadManager.Request(Uri.parse(URL2))
 
-        for(i in 0..0){
+        for(i in 0..3){
             val URL = "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
             val request = DownloadManager.Request(Uri.parse(URL))
             val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

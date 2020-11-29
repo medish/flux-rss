@@ -3,10 +3,11 @@ package com.example.projet_android.utils
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.InputStream
+import java.lang.IllegalArgumentException
 import javax.xml.parsers.DocumentBuilderFactory
 
 
-class RssXmlParser {
+class RssXmlParser{
     companion object {
         fun xmlToDocument(istream : InputStream?) : Document? {
             return try {
@@ -24,29 +25,31 @@ class RssXmlParser {
         // rss > title - atom:link - description - pubDate
         // item > title > link > description - pubDate - media-content(url)
         fun analyseRssXml(document: Document?){
-            if(document == null) return
+            if(document == null) throw IllegalArgumentException()
             // rss feed
-
             // items
             val items = document.getElementsByTagName("item")
             for(i in 0 until items.length){
                 val item = items.item(i) as Element
                 // title
                 val title = item.getElementsByTagName("title").item(0)
-                println(title?.textContent)
+                //println(title?.textContent)
 
                 // link
                 val link = item.getElementsByTagName("link").item(0)
-                println(link?.textContent)
+                //println(link?.textContent)
 
                 // description
                 val description = item.getElementsByTagName("description").item(0)
-                println(description?.textContent)
+                //println(description?.textContent)
 
                 // publication date
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
-                println(pubDate?.textContent)
+                //println(pubDate?.textContent)
             }
+
+            println("File Parsed ****************")
+
         }
     }
 }

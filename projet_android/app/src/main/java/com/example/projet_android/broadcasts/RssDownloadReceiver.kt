@@ -7,8 +7,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import com.example.projet_android.services.RssJobIntentService
 import com.example.projet_android.utils.RssXmlParser
 import java.io.FileNotFoundException
+import java.lang.Exception
 
 class RssDownloadReceiver : BroadcastReceiver() {
 
@@ -21,16 +23,11 @@ class RssDownloadReceiver : BroadcastReceiver() {
             Log.d("KEY-1", downloadID.toString())
             clearDownloadReference(downloadID, sharedPreferences)
 
-            // Get path
+            // Send uri's file to the job intent
             val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            try {
-                val uri = dm.getUriForDownloadedFile(downloadID)
-                val istream = context.contentResolver.openInputStream(uri)
-                val doc = RssXmlParser.xmlToDocument(istream)
-                RssXmlParser.analyseRssXml(doc)
-
-            }catch (e : FileNotFoundException){
-            }
+            val uri = dm.getUriForDownloadedFile(downloadID)
+            intent.putExtra("uri", uri.toString())
+            RssJobIntentService.enqueueWork(context, intent)
             //dm.remove(downloadID)
         }
     }

@@ -2,7 +2,9 @@ package com.example.projet_android.services
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.JobIntentService
+import com.example.projet_android.utils.RssXmlParser
 
 class RssJobIntentService : JobIntentService() {
     companion object {
@@ -15,8 +17,11 @@ class RssJobIntentService : JobIntentService() {
     }
 
     override fun onHandleWork(intent: Intent) {
-        // receive files
-        // parse files to info model
-        // add models to info table
+        val uri = intent.getStringExtra("uri")
+
+        if(uri != null) Log.d(TAG, uri)
+        //val istream = context.contentResolver.openInputStream(uri)
+        //val doc = RssXmlParser.xmlToDocument(istream)
+        //RssXmlParser.analyseRssXml(doc)
     }
 }
