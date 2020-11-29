@@ -16,7 +16,6 @@ import com.example.projet_android.broadcasts.RssDownloadReceiver
 import com.example.projet_android.services.RssJobIntentService
 
 class DownloadActivity : AppCompatActivity() {
-    private var downloadID : Long = 0
     //private val br = RssDownloadReceiver()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +24,25 @@ class DownloadActivity : AppCompatActivity() {
       //  registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 
+    /*
     override fun onStop() {
         super.onStop()
         //unregisterReceiver(br)
-    }
+    }*/
 
     fun launchDownload(button: View) {
-        val URL = "https://www.alislam.org/quran/Holy-Quran-French.pdf"
-        val request = DownloadManager.Request(Uri.parse(URL))
+        //val URL = "https://www.lemonde.fr/football/rss_full.xml"
+        //val URL2 = "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+        //val request = DownloadManager.Request(Uri.parse(URL))
+        //val request2 = DownloadManager.Request(Uri.parse(URL2))
 
-        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        downloadID = dm.enqueue(request)
-        saveDownloadReference(downloadID)
+        for(i in 0..0){
+            val URL = "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+            val request = DownloadManager.Request(Uri.parse(URL))
+            val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val downloadID = dm.enqueue(request)
+            saveDownloadReference(downloadID)
+        }
     }
 
     private fun saveDownloadReference(downloadId : Long){

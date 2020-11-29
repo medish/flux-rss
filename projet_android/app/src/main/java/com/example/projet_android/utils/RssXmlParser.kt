@@ -2,16 +2,17 @@ package com.example.projet_android.utils
 
 import org.w3c.dom.Document
 import org.w3c.dom.Element
+import java.io.InputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
 
-class Parser {
+class RssXmlParser {
     companion object {
-        fun xmlToDocument(uri : String) : Document? {
+        fun xmlToDocument(istream : InputStream?) : Document? {
             return try {
                 val documentFactory = DocumentBuilderFactory.newInstance()
                 val documentBuilder = documentFactory.newDocumentBuilder()
-                documentBuilder.parse(uri)
+                documentBuilder.parse(istream)
 
             }catch(e : Exception){
                 e.printStackTrace()
@@ -32,19 +33,19 @@ class Parser {
                 val item = items.item(i) as Element
                 // title
                 val title = item.getElementsByTagName("title").item(0)
-                //println(title?.textContent)
+                println(title?.textContent)
 
                 // link
                 val link = item.getElementsByTagName("link").item(0)
-                //println(link?.textContent)
+                println(link?.textContent)
 
                 // description
                 val description = item.getElementsByTagName("description").item(0)
-                //println(description?.textContent)
+                println(description?.textContent)
 
                 // publication date
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
-                //println(pubDate?.textContent)
+                println(pubDate?.textContent)
             }
         }
     }
