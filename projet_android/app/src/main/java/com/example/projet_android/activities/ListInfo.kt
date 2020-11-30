@@ -14,7 +14,7 @@ import com.example.projet_android.models.FluxModel
 class ListInfo : AppCompatActivity() {
     private lateinit var infomodel: FluxModel
     private val recyclerViewAdapter: InfoAdapter = InfoAdapter()
-    var lsinfo = emptyList<Info>()
+    private var lsinfo = emptyList<Info>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,7 @@ class ListInfo : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //just a test
-        val i : Info
-        i= Info(0,"test","just a test","www.test.com",true,1)
+        val i = Info("test","just a test","www.test.com",true,1)
 
         infomodel = ViewModelProvider(this).get(FluxModel::class.java)
         infomodel.ajouterInfo(i)

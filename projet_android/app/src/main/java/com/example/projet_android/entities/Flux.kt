@@ -12,4 +12,6 @@ data class Flux(
     var url: String,
     var source: String,
     var tag: String
-)
+){
+    constructor(url: String, source: String, tag: String) : this(0, url, source, tag)
+}

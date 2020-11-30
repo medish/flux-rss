@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.models.FluxModel
+import kotlinx.android.synthetic.main.activity_ajouter_flux.*
 
 
 class AjouterFlux : AppCompatActivity() {
@@ -21,9 +22,9 @@ class AjouterFlux : AppCompatActivity() {
         val t: EditText = findViewById(R.id.TAG)
         val u: EditText = findViewById(R.id.URL)
 
-        if (button == findViewById(R.id.ajouter) && s.text.toString().trim() != "" && t.text.toString().trim()!="" && u.text.toString().trim()!="") {
+        if (button == findViewById(R.id.ajouter) && s.text.isNotEmpty() && t.text.isNotEmpty() && u.text.isNotEmpty()) {
             val f : Flux
-            f=Flux(0,u.text.toString().trim(),s.text.toString().trim(),t.text.toString().trim())
+            f=Flux(u.text.toString().trim(),s.text.toString().trim(),t.text.toString().trim())
             var ls = listOf<Long>()
             ls = ajoutfluxmodel.ajouterFlux(f)
             Toast.makeText(this, ls.size.toString(), Toast.LENGTH_SHORT).show()
@@ -32,7 +33,7 @@ class AjouterFlux : AppCompatActivity() {
             u.text.clear()
 
         }else{
-            Toast.makeText(this, "les champs ne doit pas etre vide ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "les champs ne doivent pas etre vides ", Toast.LENGTH_SHORT).show()
         }
 
     }
