@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.projet_android.dao.FluxDao
 import com.example.projet_android.entities.Flux
+import com.example.projet_android.entities.Info
 
 
-@Database(entities = arrayOf(Flux::class ), version = 1)
+@Database(entities = arrayOf(Flux::class, Info::class ), version = 1)
 abstract class FluxData: RoomDatabase()  {
     abstract val Daoinsert : FluxDao
 

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
-import com.example.projet_android.models.AjouteFluxModel
+import com.example.projet_android.models.FluxModel
 
 class ListFlux : AppCompatActivity() {
-    private lateinit var ajoutfluxmodel: AjouteFluxModel
+    private lateinit var ajoutfluxmodel: FluxModel
     private val recyclerViewAdapter: FluxAdapter = FluxAdapter()
     var lsFlux = emptyList<Flux>()
 
@@ -22,7 +22,7 @@ class ListFlux : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
+        ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
         lsFlux = ajoutfluxmodel.allflux()
 
 

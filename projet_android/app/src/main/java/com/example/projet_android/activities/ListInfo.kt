@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Info
 import com.example.projet_android.R
 import com.example.projet_android.adapters.InfoAdapter
-import com.example.projet_android.models.InfoModel
+import com.example.projet_android.models.FluxModel
 
 class ListInfo : AppCompatActivity() {
-    private lateinit var infomodel: InfoModel
+    private lateinit var infomodel: FluxModel
     private val recyclerViewAdapter: InfoAdapter = InfoAdapter()
     var lsinfo = emptyList<Info>()
 
@@ -24,9 +24,9 @@ class ListInfo : AppCompatActivity() {
 
         //just a test
         val i : Info
-        i= Info("test","just a test","www.test.com",true,"www.test.com")
+        i= Info(0,"test","just a test","www.test.com",true,1)
 
-        infomodel = ViewModelProvider(this).get(InfoModel::class.java)
+        infomodel = ViewModelProvider(this).get(FluxModel::class.java)
         infomodel.ajouterInfo(i)
         lsinfo = infomodel.allInfo()
 

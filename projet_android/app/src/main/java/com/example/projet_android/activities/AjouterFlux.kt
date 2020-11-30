@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
-import com.example.projet_android.models.AjouteFluxModel
+import com.example.projet_android.models.FluxModel
 
 
 class AjouterFlux : AppCompatActivity() {
-    private lateinit var ajoutfluxmodel: AjouteFluxModel
+    private lateinit var ajoutfluxmodel: FluxModel
 
     fun ajouter(button:View){
 
@@ -23,7 +23,7 @@ class AjouterFlux : AppCompatActivity() {
 
         if (button == findViewById(R.id.ajouter) && s.text.toString().trim() != "" && t.text.toString().trim()!="" && u.text.toString().trim()!="") {
             val f : Flux
-            f= Flux(u.text.toString().trim(),s.text.toString().trim(),t.text.toString().trim())
+            f=Flux(0,u.text.toString().trim(),s.text.toString().trim(),t.text.toString().trim())
             var ls = listOf<Long>()
             ls = ajoutfluxmodel.ajouterFlux(f)
             Toast.makeText(this, ls.size.toString(), Toast.LENGTH_SHORT).show()
@@ -43,7 +43,7 @@ class AjouterFlux : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ajoutfluxmodel = ViewModelProvider(this).get(AjouteFluxModel::class.java)
+        ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
