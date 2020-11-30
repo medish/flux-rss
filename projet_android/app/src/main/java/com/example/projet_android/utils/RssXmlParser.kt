@@ -26,7 +26,7 @@ class RssXmlParser{
         // Read elements
         // rss > title - atom:link - description - pubDate
         // item > title > link > description - pubDate - media-content(url)
-        fun analyseRssXml(document: Document?): List<Info> {
+        fun analyseRssXml(document: Document?): Array<Info> {
             // TODO("check null for item's elements")
             // TODO("Add pubDate to info's table")
             if(document == null) throw FileNotFoundException("Document not found")
@@ -52,7 +52,7 @@ class RssXmlParser{
                 infoList.add(info)
             }
 
-            return infoList.toList()
+            return infoList.toTypedArray()
         }
     }
 }

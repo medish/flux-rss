@@ -24,11 +24,12 @@ class DownloadActivity : AppCompatActivity() {
       //  registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 
-    /*
+
     override fun onStop() {
         super.onStop()
+        Log.d("STOP", "STOP")
         //unregisterReceiver(br)
-    }*/
+    }
 
     fun launchDownload(button: View) {
         //val URL = "https://www.lemonde.fr/football/rss_full.xml"
@@ -36,7 +37,7 @@ class DownloadActivity : AppCompatActivity() {
         //val request = DownloadManager.Request(Uri.parse(URL))
         //val request2 = DownloadManager.Request(Uri.parse(URL2))
 
-        for(i in 0..3){
+        for(i in 0..0){
             val URL = "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
             val request = DownloadManager.Request(Uri.parse(URL))
             val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
