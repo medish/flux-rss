@@ -50,5 +50,16 @@
         android:text="ListerInfo"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center"
+        android:onClick="downloadActivity"
+        android:text="Download"
+        />
+
+
+
 
 </LinearLayout>
