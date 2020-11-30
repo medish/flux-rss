@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
-import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.flux_item_layout.view.*
 
 class FluxAdapter: RecyclerView.Adapter<FluxAdapter.VH>() {
 
@@ -22,7 +22,7 @@ class FluxAdapter: RecyclerView.Adapter<FluxAdapter.VH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater
             .from(parent.getContext())
-            .inflate(R.layout.item_layout, parent,false)
+            .inflate(R.layout.flux_item_layout, parent,false)
 
         return VH(v)
     }
