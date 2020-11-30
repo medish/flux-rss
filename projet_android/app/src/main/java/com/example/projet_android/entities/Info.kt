@@ -15,4 +15,7 @@ data class Info(
     var Link: String,
     var nouveau:Boolean,
     var fluxid: Long
-)
+){
+    constructor(title: String, description: String, Link: String, nouveau: Boolean, fluxid: Long) :
+            this(0, title, description, Link, nouveau, fluxid)
+}

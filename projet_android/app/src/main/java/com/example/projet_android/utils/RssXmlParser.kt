@@ -33,8 +33,8 @@ class RssXmlParser{
 
             val infoList = mutableListOf<Info>()
             // rss feed
-            val atomLink = document.getElementsByTagName("atom:link").item(0)
-            val rssLink = atomLink.attributes.getNamedItem("href")
+            //val atomLink = document.getElementsByTagName("atom:link").item(0)
+            //val rssLink = atomLink.attributes.getNamedItem("href")
 
             // items
             val items = document.getElementsByTagName("item")
@@ -48,7 +48,7 @@ class RssXmlParser{
 
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
 
-                val info = Info(title.textContent, description.textContent, link.textContent, true, rssLink.textContent)
+                val info = Info(title.textContent, description.textContent, link.textContent, true, 1)
                 infoList.add(info)
             }
 
