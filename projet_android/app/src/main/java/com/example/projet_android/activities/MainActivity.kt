@@ -27,12 +27,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(aj)
     }
 
-    fun downloadActivity(view: View) {
-        val downloadActivity = Intent(this, DownloadActivity::class.java)
-        startActivity(downloadActivity)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

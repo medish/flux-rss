@@ -1,15 +1,22 @@
 package com.example.projet_android.activities
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
 import com.example.projet_android.models.FluxModel
+import kotlinx.android.synthetic.main.activity_list_flux.*
+import java.lang.IllegalArgumentException
 
 class ListFlux : AppCompatActivity() {
     private lateinit var ajoutfluxmodel: FluxModel
@@ -25,8 +32,6 @@ class ListFlux : AppCompatActivity() {
         ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
         lsFlux = ajoutfluxmodel.allflux()
 
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerViewAdapter.setListFlux(lsFlux)
         recyclerView.adapter = recyclerViewAdapter
@@ -43,4 +48,42 @@ class ListFlux : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun downloadFlux(button : View){
+        // Map< Key = fluxid, value = url>
+        val urls = lsFlux.mapNotNull {
+            if(it.isChecked) {it.id to it.url} else null
+        }.toMap()
+
+        if(urls.isEmpty()){
+            Toast.makeText(this@ListFlux, "Vous devez cochez au moins un flux", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        for(url in urls){
+            Log.i("FLUX", url.key.toString())
+            Log.i("FLUX", url.value)
+        }
+
+        launchDownload(urls)
+    }
+
+
+    private fun launchDownload(urls : Map<Long, String>){
+        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val sharedPreferences = getSharedPreferences("DownloadsIds", MODE_PRIVATE)
+        val sharedEditor = sharedPreferences.edit()
+
+        for(url in urls){
+            try {
+                val request = DownloadManager.Request(Uri.parse(url.value))
+                val id = dm.enqueue(request)
+                sharedEditor.putLong(id.toString(), url.key)
+            }catch (e : IllegalArgumentException){
+                e.printStackTrace()
+            }
+        }
+
+        sharedEditor.apply()
+    }
 }
