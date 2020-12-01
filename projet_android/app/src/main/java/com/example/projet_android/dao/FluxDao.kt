@@ -12,7 +12,7 @@ import com.example.projet_android.entities.Info
 interface FluxDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insertFlux(vararg flux: Flux) : List<Long>
+    fun insertFlux(flux: Flux) : Long
 
     @Query("SELECT * FROM Flux")
     fun loadAllFlux(): LiveData<List<Flux>>
