@@ -22,21 +22,22 @@ class RssJobIntentService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
         val uri = intent.getStringExtra("uri") ?: ""
+        val fluxId = intent.getLongExtra("fluxId", -1)
         Log.d(TAG, uri)
 
         try{
             val istream = contentResolver.openInputStream(Uri.parse(uri))
             val doc = RssXmlParser.xmlToDocument(istream)
-            val infoList = RssXmlParser.analyseRssXml(doc)
+            val infoList = RssXmlParser.analyseRssXml(doc, fluxId)
 
             val db = FluxData.getInstance(this)
             try {
                 db.Daoinsert.insertInfo(*infoList)
             }catch (e : SQLiteConstraintException){
-                Log.e(TAG, e.message.toString())
+                e.printStackTrace()
             }
         }catch (e : FileNotFoundException){
-            Log.e(TAG, e.message.toString())
+            e.printStackTrace()
         }
     }
 }

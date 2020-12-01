@@ -26,7 +26,7 @@ class RssXmlParser{
         // Read elements
         // rss > title - atom:link - description - pubDate
         // item > title > link > description - pubDate - media-content(url)
-        fun analyseRssXml(document: Document?): Array<Info> {
+        fun analyseRssXml(document: Document?, fluxId : Long): Array<Info> {
             // TODO("check null for item's elements")
             // TODO("Add pubDate to info's table")
             if(document == null) throw FileNotFoundException("Document not found")
@@ -48,7 +48,7 @@ class RssXmlParser{
 
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
 
-                val info = Info(title.textContent, description.textContent, link.textContent, true, 1)
+                val info = Info(title.textContent, description.textContent, link.textContent, true, fluxId)
                 infoList.add(info)
             }
 

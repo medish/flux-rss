@@ -24,7 +24,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/SOURCE"/>
+            android:id="@+id/source_edit"/>
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +40,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/TAG"/>
+            android:id="@+id/tag_edit"/>
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +56,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/URL"/>
+            android:id="@+id/url_edit"/>
     </LinearLayout>
 
 

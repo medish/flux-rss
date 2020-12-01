@@ -1,5 +1,7 @@
 package com.example.projet_android.activities
 
+import android.app.DownloadManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,32 +13,12 @@ import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.models.FluxModel
 import kotlinx.android.synthetic.main.activity_ajouter_flux.*
+import java.lang.IllegalArgumentException
 
 
 class AjouterFlux : AppCompatActivity() {
     private lateinit var ajoutfluxmodel: FluxModel
 
-    fun ajouter(button:View){
-
-        val s: EditText = findViewById(R.id.SOURCE)
-        val t: EditText = findViewById(R.id.TAG)
-        val u: EditText = findViewById(R.id.URL)
-
-        if (button == findViewById(R.id.ajouter) && s.text.isNotEmpty() && t.text.isNotEmpty() && u.text.isNotEmpty()) {
-            val f : Flux
-            f=Flux(u.text.toString().trim(),s.text.toString().trim(),t.text.toString().trim())
-            var ls = listOf<Long>()
-            ls = ajoutfluxmodel.ajouterFlux(f)
-            Toast.makeText(this, ls.size.toString(), Toast.LENGTH_SHORT).show()
-            s.text.clear()
-            t.text.clear()
-            u.text.clear()
-
-        }else{
-            Toast.makeText(this, "les champs ne doivent pas etre vides ", Toast.LENGTH_SHORT).show()
-        }
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +28,43 @@ class AjouterFlux : AppCompatActivity() {
 
         ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
     }
+
+
+    fun ajouter(button:View){
+
+
+        if(source_edit.text.isEmpty() || tag_edit.text.isEmpty() || url_edit.text.isEmpty()){
+            Toast.makeText(this@AjouterFlux, "Vous devez remplir tous les champs", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val url = url_edit.text.toString().trim()
+        // check if the entered url is valid
+        if(url.isNotEmpty()){
+            try {
+                DownloadManager.Request(Uri.parse(url))
+            }catch (e : IllegalArgumentException){
+                Toast.makeText(this@AjouterFlux, "URL n'est pas valide!", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+                return
+            }
+        }
+
+        val f : Flux = Flux(url, source_edit.text.toString().trim(), tag_edit.text.toString().trim())
+        val fluxId = ajoutfluxmodel.ajouterFlux(f)
+        if(fluxId < 0){
+            Toast.makeText(this, "Erreur", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Toast.makeText(this,"Le flux ${fluxId} est bien ajouté", Toast.LENGTH_SHORT).show()
+
+        source_edit.text.clear()
+        tag_edit.text.clear()
+        url_edit.text.clear()
+    }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

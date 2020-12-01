@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Info
 import com.example.projet_android.R
-import kotlinx.android.synthetic.main.item_layout2.view.*
+import kotlinx.android.synthetic.main.info_item_layout.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
     var lsInfo = emptyList<Info>()
@@ -20,7 +20,7 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater
             .from(parent.getContext())
-            .inflate(R.layout.item_layout2, parent,false)
+            .inflate(R.layout.info_item_layout, parent,false)
 
         return VH(v)
     }

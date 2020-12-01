@@ -31,9 +31,9 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
         return lsF
     }
 
-    fun ajouterFlux(f: Flux): List<Long> {
+    fun ajouterFlux(f: Flux): Long {
 
-        var ls = listOf<Long>()
+        var ls : Long = -1
         val tr = Thread{
 
             try{

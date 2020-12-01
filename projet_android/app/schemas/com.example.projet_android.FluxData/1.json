@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b824d6ff2510a75030b8841cf7293f2b",
+    "identityHash": "4de8e3f48060685aac0016ae4ad82382",
     "entities": [
       {
         "tableName": "Flux",
@@ -39,7 +39,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Flux_url",
+            "unique": true,
+            "columnNames": [
+              "url"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Flux_url` ON `${TABLE_NAME}` (`url`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -108,7 +117,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b824d6ff2510a75030b8841cf7293f2b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4de8e3f48060685aac0016ae4ad82382')"
     ]
   }
 }
