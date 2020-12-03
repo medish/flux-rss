@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RSS</string>
+    <string name="flux_activity_name">Flux</string>
 </resources>
