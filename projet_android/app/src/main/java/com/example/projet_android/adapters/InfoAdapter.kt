@@ -10,8 +10,9 @@ import com.example.projet_android.R
 import kotlinx.android.synthetic.main.info_item_layout.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
-    var lsInfo = emptyList<Info>()
-    class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
+    private var lsInfo = emptyList<Info>()
+
+    inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun getItemCount(): Int {
         return lsInfo.size
@@ -19,23 +20,21 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater
-            .from(parent.getContext())
+            .from(parent.context)
             .inflate(R.layout.info_item_layout, parent,false)
 
         return VH(v)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.itemView.title.text = lsInfo[position].title
-        holder.itemView.description.text = lsInfo[position].description
+        val infoView = holder.itemView
+        val info = lsInfo[position]
 
-        holder.itemView.setBackgroundColor(
-            if(position % 2 == 0){
-                Color.argb(30,0,220,0)
-            }else{
-                Color.argb(30,0,0,220)
-            }
-        )
+        infoView.title.text = info.title
+        infoView.description.text = info.description
+        infoView.newInfo.text = info.nouveau.toString()
+        //infoView.pubDate.text = info.pubDate
+        
     }
 
     fun setListInfo(info: List<Info>){

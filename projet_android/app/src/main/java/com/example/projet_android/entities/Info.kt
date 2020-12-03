@@ -6,16 +6,16 @@ import androidx.room.PrimaryKey
 import java.net.URL
 
 
-@Entity(foreignKeys = arrayOf(ForeignKey(entity = Flux::class, parentColumns = ["id"] , childColumns = ["fluxid"],deferred = true, onDelete = ForeignKey.CASCADE)))
+@Entity(foreignKeys = [ForeignKey(entity = Flux::class, parentColumns = ["id"] , childColumns = ["fluxid"],deferred = true, onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)])
 data class Info(
     @PrimaryKey(autoGenerate =true)
-    var id: Long= 0,
+    var id: Long,
     var title: String,
     var description:String,
-    var Link: String,
+    var link: String,
     var nouveau:Boolean,
     var fluxid: Long
 ){
-    constructor(title: String, description: String, Link: String, nouveau: Boolean, fluxid: Long) :
-            this(0, title, description, Link, nouveau, fluxid)
+    constructor(title: String, description: String, link: String, nouveau: Boolean, fluxid: Long) :
+            this(0, title, description, link, nouveau, fluxid)
 }

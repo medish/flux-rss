@@ -2,26 +2,29 @@ package com.example.projet_android.models
 
 import android.app.Application
 import android.database.sqlite.SQLiteConstraintException
+import android.database.sqlite.SQLiteException
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.FluxData
+import com.example.projet_android.dao.FluxDao
 import com.example.projet_android.entities.Info
+import java.sql.SQLInput
 
 class FluxModel(application: Application) : AndroidViewModel(application) {
-    val db : FluxData by lazy{ FluxData.getInstance(application) }
+    private val fluxDao : FluxDao by lazy{ FluxData.getInstance(application).fluxDao }
 
-    val allfluxs: LiveData<List<Flux>> by lazy{ db.Daoinsert.loadAllFlux() }
+    val allfluxs: LiveData<List<Flux>> by lazy{ fluxDao.loadAllLiveFlux() }
 
-    var lsF = emptyList<Flux>()
 
     fun allflux():List<Flux>{
+        var lsF = emptyList<Flux>()
         val tr = Thread{
 
             try{
-                lsF = db.Daoinsert.loadAllFluxs()}
-            catch(e : SQLiteConstraintException){
+                lsF = fluxDao.loadAllFluxs()}
+            catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 
@@ -37,8 +40,8 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
         val tr = Thread{
 
             try{
-                ls = db.Daoinsert.insertFlux(f)}
-            catch(e : SQLiteConstraintException){
+                ls = fluxDao.insertFlux(f)}
+            catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 
@@ -48,39 +51,14 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
         return ls
     }
 
-    val allInfos: LiveData<List<Info>> by lazy{ db.Daoinsert.loadAllInfo() }
-
-    var lsinfo = emptyList<Info>()
-
-    fun allInfo():List<Info>{
-        val tr = Thread{
-
-            try{
-                lsinfo = db.Daoinsert.loadAllInfos()}
-            catch(e : SQLiteConstraintException){
+    fun deleteFlux(id : Long) {
+        val thread = Thread{
+            try {
+                fluxDao.deleteFlux(id)
+            }catch (e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
-
         }
-        tr.start()
-        tr.join()
-        return lsinfo
-    }
-
-    fun ajouterInfo(i: Info): List<Long> {
-
-        var ls = listOf<Long>()
-        val tr = Thread{
-
-            try{
-                ls = db.Daoinsert.insertInfo(i)}
-            catch(e : SQLiteConstraintException){
-                Log.e("SQL_ERREUR",e.toString())
-            }
-
-        }
-        tr.start()
-        tr.join()
-        return ls
+        thread.start()
     }
 }

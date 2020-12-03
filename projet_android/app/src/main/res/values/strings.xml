@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RSS</string>
+    <string name="flux_activity_name">Flux</string>
+    <string name="info_activity_name">Infos</string>
+    <string name="add_flux">Ajouter un flux</string>
+    <string name="confirm_delete_flux">Confirmez...</string>
+    <string name="yes">Oui</string>
+    <string name="cancel">Annuler</string>
 </resources>

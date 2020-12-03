@@ -20,15 +20,17 @@ class RssDownloadReceiver : BroadcastReceiver() {
 
         if(sharedPreferences.contains(downloadID.toString())) {
             val fluxId = sharedPreferences.getLong(downloadID.toString(), -1)
-            Toast.makeText(context, "Finished $fluxId", Toast.LENGTH_SHORT).show()
-            Log.d("DOWNLOAD-RECEIVER", downloadID.toString())
             clearDownloadReference(downloadID, sharedPreferences)
 
             // Send uri's file to the job intent
             val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            val uri = dm.getUriForDownloadedFile(downloadID)
+            val uri = dm.getUriForDownloadedFile(downloadID) ?: return
             intent.putExtra("uri", uri.toString())
             intent.putExtra("fluxId", fluxId)
+
+            Toast.makeText(context, "Finished $fluxId", Toast.LENGTH_SHORT).show()
+            Log.d("DOWNLOAD-RECEIVER", downloadID.toString())
+
             RssJobIntentService.enqueueWork(context, intent)
             //dm.remove(downloadID)
         }
