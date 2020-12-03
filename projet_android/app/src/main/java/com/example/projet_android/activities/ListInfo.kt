@@ -25,10 +25,10 @@ class ListInfo : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //just a test
-        val i = Info("test","just a test","www.test.com",true,1)
+        //val i = Info("test","just a test2222","www.test.com",true,6)
 
         infoModel = ViewModelProvider(this).get(InfoModel::class.java)
-        infoModel.addInfo(i)
+        //infoModel.addInfo(i)
         lsinfo = infoModel.allInfo()
 
 

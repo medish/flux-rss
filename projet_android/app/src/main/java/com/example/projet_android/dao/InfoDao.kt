@@ -9,7 +9,7 @@ import com.example.projet_android.entities.Info
 
 @Dao
 interface InfoDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertInfo(vararg info: Info) : List<Long>
 
     @Query("SELECT * FROM Info")

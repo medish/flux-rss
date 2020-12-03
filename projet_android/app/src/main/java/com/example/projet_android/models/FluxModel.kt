@@ -2,6 +2,7 @@ package com.example.projet_android.models
 
 import android.app.Application
 import android.database.sqlite.SQLiteConstraintException
+import android.database.sqlite.SQLiteException
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -9,6 +10,7 @@ import com.example.projet_android.entities.Flux
 import com.example.projet_android.FluxData
 import com.example.projet_android.dao.FluxDao
 import com.example.projet_android.entities.Info
+import java.sql.SQLInput
 
 class FluxModel(application: Application) : AndroidViewModel(application) {
     private val fluxDao : FluxDao by lazy{ FluxData.getInstance(application).fluxDao }
@@ -22,7 +24,7 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
 
             try{
                 lsF = fluxDao.loadAllFluxs()}
-            catch(e : SQLiteConstraintException){
+            catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 
@@ -39,7 +41,7 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
 
             try{
                 ls = fluxDao.insertFlux(f)}
-            catch(e : SQLiteConstraintException){
+            catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 
@@ -47,5 +49,16 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
         tr.start()
         tr.join()
         return ls
+    }
+
+    fun deleteFlux(id : Long) {
+        val thread = Thread{
+            try {
+                fluxDao.deleteFlux(id)
+            }catch (e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+        }
+        thread.start()
     }
 }

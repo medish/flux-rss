@@ -1,7 +1,7 @@
 package com.example.projet_android.models
 
 import android.app.Application
-import android.database.sqlite.SQLiteConstraintException
+import android.database.sqlite.SQLiteException
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -20,7 +20,7 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
 
             try{
                 lsinfo = infoDao.loadAllInfos()}
-            catch(e : SQLiteConstraintException){
+            catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 
@@ -36,8 +36,8 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         val tr = Thread{
 
             try{
-                ls = infoDao.insertInfo(i)}
-            catch(e : SQLiteConstraintException){
+                ls = infoDao.insertInfo(i)
+            } catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
 

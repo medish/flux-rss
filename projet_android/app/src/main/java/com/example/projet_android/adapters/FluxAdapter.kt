@@ -59,4 +59,8 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
         notifyDataSetChanged()
     }
 
+    fun getFluxAt(position : Int) : Flux{
+        return lsFlux[position]
+    }
+
 }

@@ -44,6 +44,9 @@ class ListFlux : AppCompatActivity() {
         fluxModel.allfluxs.observe(this, Observer {
             recyclerViewAdapter.setListFlux(it)
         })
+
+        val itemTouchHelper = ItemTouchHelper(swipeCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -116,8 +119,8 @@ class ListFlux : AppCompatActivity() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-
+            val flux = recyclerViewAdapter.getFluxAt(position)
+            fluxModel.deleteFlux(flux.id)
         }
-
     }
 }
