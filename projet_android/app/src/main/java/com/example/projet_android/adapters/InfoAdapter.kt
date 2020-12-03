@@ -27,10 +27,16 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.itemView.title.text = lsInfo[position].title
-        holder.itemView.description.text = lsInfo[position].description
+        val infoView = holder.itemView
+        val info = lsInfo[position]
 
-        holder.itemView.setBackgroundColor(
+        infoView.title.text = info.title
+        infoView.description.text = info.description
+        infoView.link.text = info.link
+        infoView.newInfo.text = info.nouveau.toString()
+        //infoView.pubDate.text = info.pubDate
+
+        infoView.setBackgroundColor(
             if(position % 2 == 0){
                 Color.argb(30,0,220,0)
             }else{

@@ -12,10 +12,10 @@ data class Info(
     var id: Long,
     var title: String,
     var description:String,
-    var Link: String,
+    var link: String,
     var nouveau:Boolean,
     var fluxid: Long
 ){
-    constructor(title: String, description: String, Link: String, nouveau: Boolean, fluxid: Long) :
-            this(0, title, description, Link, nouveau, fluxid)
+    constructor(title: String, description: String, link: String, nouveau: Boolean, fluxid: Long) :
+            this(0, title, description, link, nouveau, fluxid)
 }

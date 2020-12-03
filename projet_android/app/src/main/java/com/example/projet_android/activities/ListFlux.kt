@@ -1,7 +1,9 @@
 package com.example.projet_android.activities
 
+import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +29,7 @@ class ListFlux : AppCompatActivity() {
 
     private lateinit var fluxModel: FluxModel
     private val recyclerViewAdapter: FluxAdapter = FluxAdapter()
-    var lsFlux = emptyList<Flux>()
+    private var lsFlux = emptyList<Flux>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +40,14 @@ class ListFlux : AppCompatActivity() {
         fluxModel = ViewModelProvider(this).get(FluxModel::class.java)
         lsFlux = fluxModel.allflux()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = recyclerViewAdapter
 
         fluxModel.allfluxs.observe(this, Observer {
             recyclerViewAdapter.setListFlux(it)
         })
 
-        val itemTouchHelper = ItemTouchHelper(swipeCallback)
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
@@ -112,15 +114,30 @@ class ListFlux : AppCompatActivity() {
         startActivityForResult(aj, REQUEST_ADD_FLUX)
     }
 
-    val swipeCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT.or(ItemTouchHelper.LEFT)) {
+    private val swipeToDeleteCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT.or(ItemTouchHelper.LEFT)) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-            val flux = recyclerViewAdapter.getFluxAt(position)
-            fluxModel.deleteFlux(flux.id)
+
+            AlertDialog.Builder(viewHolder.itemView.context)
+                .setMessage(R.string.confirm_delete_flux)
+                .setPositiveButton(R.string.yes) { _, _ ->
+                        val flux = recyclerViewAdapter.getFluxAt(position)
+                        fluxModel.deleteFlux(flux.id)
+                }
+                .setNegativeButton(R.string.cancel){_,_->
+                    recyclerViewAdapter.notifyItemChanged(position)
+                }
+                .create()
+                .show()
         }
     }
+
+
+
 }
+
+
