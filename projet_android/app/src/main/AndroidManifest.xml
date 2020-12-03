@@ -16,8 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ListInfo" />
-        <activity android:name=".activities.ListFlux" android:label="@string/flux_activity_name"/>
-        <activity android:name=".activities.AjouterFlux" />
+        <activity android:name=".activities.ListFlux"
+            android:label="@string/flux_activity_name"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity android:name=".activities.AjouterFlux"
+            android:label="@string/add_flux"
+            android:parentActivityName=".activities.ListFlux"/>
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

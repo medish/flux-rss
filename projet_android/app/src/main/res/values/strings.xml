@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RSS</string>
     <string name="flux_activity_name">Flux</string>
+    <string name="add_flux">Ajouter un flux</string>
 </resources>

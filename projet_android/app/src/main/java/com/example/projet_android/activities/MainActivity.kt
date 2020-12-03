@@ -12,11 +12,6 @@ import com.example.projet_android.R
 
 class MainActivity : AppCompatActivity() {
 
-    fun AjouterFlux(button:View){
-            val aj = Intent(this, AjouterFlux::class.java)
-            startActivity(aj)
-    }
-
     fun ListFlux(button:View){
         val aj = Intent(this, ListFlux::class.java)
         startActivity(aj)
@@ -31,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
+/*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when( item.itemId ){
@@ -53,5 +48,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+*/
 }

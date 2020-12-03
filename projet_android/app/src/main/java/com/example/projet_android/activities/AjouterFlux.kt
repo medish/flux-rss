@@ -1,6 +1,7 @@
 package com.example.projet_android.activities
 
 import android.app.DownloadManager
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -57,21 +58,19 @@ class AjouterFlux : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(this,"Le flux ${fluxId} est bien ajouté", Toast.LENGTH_SHORT).show()
-
-        source_edit.text.clear()
-        tag_edit.text.clear()
-        url_edit.text.clear()
+        val data = Intent()
+        data.putExtra("fluxId", fluxId)
+        setResult(RESULT_OK, data)
+        finish()
     }
 
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when( item.itemId ){
-            android.R.id.home     -> { finish() }
-
+        return when( item.itemId ){
+            //android.R.id.home     -> { finish(); true}
+            else -> {super.onOptionsItemSelected(item)}
         }
-        return super.onOptionsItemSelected(item)
     }
 }

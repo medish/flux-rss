@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.flux_item_layout.view.*
 
 class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
 
-    private var lsFlux = emptyList<Flux>()
+    var lsFlux = emptyList<Flux>()
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -31,6 +31,7 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
             val position = checkBox.tag as Int
             val flux = lsFlux[position]
             flux.isChecked = checkBox.isChecked
+
             val color = if(flux.isChecked) Color.LTGRAY else Color.WHITE
             val cardView = v as CardView
             cardView.setCardBackgroundColor(color)
