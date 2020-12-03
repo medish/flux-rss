@@ -6,14 +6,15 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
@@ -24,7 +25,7 @@ import java.lang.IllegalArgumentException
 class ListFlux : AppCompatActivity() {
     private val REQUEST_ADD_FLUX = 1
 
-    private lateinit var ajoutfluxmodel: FluxModel
+    private lateinit var fluxModel: FluxModel
     private val recyclerViewAdapter: FluxAdapter = FluxAdapter()
     var lsFlux = emptyList<Flux>()
 
@@ -34,13 +35,13 @@ class ListFlux : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
-        lsFlux = ajoutfluxmodel.allflux()
+        fluxModel = ViewModelProvider(this).get(FluxModel::class.java)
+        lsFlux = fluxModel.allflux()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewAdapter
 
-        ajoutfluxmodel.allfluxs.observe(this, Observer {
+        fluxModel.allfluxs.observe(this, Observer {
             recyclerViewAdapter.setListFlux(it)
         })
     }
@@ -98,13 +99,25 @@ class ListFlux : AppCompatActivity() {
 
         return when (item.itemId) {
            // android.R.id.home    -> { finish(); true}
-            R.id.add_flux_item -> { addFlux() ;true }
+            R.id.add_flux_item -> { addFluxActivity() ;true }
             else -> { super.onOptionsItemSelected(item) }
         }
     }
 
-    private fun addFlux(){
+    private fun addFluxActivity(){
         val aj = Intent(this, AjouterFlux::class.java)
         startActivityForResult(aj, REQUEST_ADD_FLUX)
+    }
+
+    val swipeCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT.or(ItemTouchHelper.LEFT)) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+
+        }
+
     }
 }

@@ -10,8 +10,9 @@ import com.example.projet_android.R
 import kotlinx.android.synthetic.main.info_item_layout.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
-    var lsInfo = emptyList<Info>()
-    class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
+    private var lsInfo = emptyList<Info>()
+
+    inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun getItemCount(): Int {
         return lsInfo.size
@@ -19,7 +20,7 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater
-            .from(parent.getContext())
+            .from(parent.context)
             .inflate(R.layout.info_item_layout, parent,false)
 
         return VH(v)

@@ -5,13 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.projet_android.dao.FluxDao
+import com.example.projet_android.dao.InfoDao
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.entities.Info
 
 
-@Database(entities = arrayOf(Flux::class, Info::class ), version = 1)
+@Database(entities = [Flux::class, Info::class], version = 1)
 abstract class FluxData: RoomDatabase()  {
-    abstract val Daoinsert : FluxDao
+    abstract val fluxDao : FluxDao
+    abstract val infoDao : InfoDao
 
     companion object {
 

@@ -30,9 +30,9 @@ class RssJobIntentService : JobIntentService() {
             val doc = RssXmlParser.xmlToDocument(istream)
             val infoList = RssXmlParser.analyseRssXml(doc, fluxId)
 
-            val db = FluxData.getInstance(this)
+            val infoDao = FluxData.getInstance(this).infoDao
             try {
-                db.Daoinsert.insertInfo(*infoList)
+                infoDao.insertInfo(*infoList)
             }catch (e : SQLiteConstraintException){
                 e.printStackTrace()
             }

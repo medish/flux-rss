@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.projet_android.entities.Flux
@@ -18,7 +17,7 @@ import java.lang.IllegalArgumentException
 
 
 class AjouterFlux : AppCompatActivity() {
-    private lateinit var ajoutfluxmodel: FluxModel
+    private lateinit var fluxModel: FluxModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class AjouterFlux : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ajoutfluxmodel = ViewModelProvider(this).get(FluxModel::class.java)
+        fluxModel = ViewModelProvider(this).get(FluxModel::class.java)
     }
 
 
@@ -51,8 +50,8 @@ class AjouterFlux : AppCompatActivity() {
             }
         }
 
-        val f : Flux = Flux(url, source_edit.text.toString().trim(), tag_edit.text.toString().trim())
-        val fluxId = ajoutfluxmodel.ajouterFlux(f)
+        val f = Flux(url, source_edit.text.toString().trim(), tag_edit.text.toString().trim())
+        val fluxId = fluxModel.ajouterFlux(f)
         if(fluxId < 0){
             Toast.makeText(this, "Erreur", Toast.LENGTH_SHORT).show()
             return
@@ -62,15 +61,5 @@ class AjouterFlux : AppCompatActivity() {
         data.putExtra("fluxId", fluxId)
         setResult(RESULT_OK, data)
         finish()
-    }
-
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when( item.itemId ){
-            //android.R.id.home     -> { finish(); true}
-            else -> {super.onOptionsItemSelected(item)}
-        }
     }
 }

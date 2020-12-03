@@ -5,23 +5,21 @@ import android.database.sqlite.SQLiteConstraintException
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.projet_android.entities.Flux
 import com.example.projet_android.FluxData
-import com.example.projet_android.dao.FluxDao
+import com.example.projet_android.dao.InfoDao
 import com.example.projet_android.entities.Info
 
-class FluxModel(application: Application) : AndroidViewModel(application) {
-    private val fluxDao : FluxDao by lazy{ FluxData.getInstance(application).fluxDao }
+class InfoModel(application: Application) : AndroidViewModel(application) {
+    private val infoDao : InfoDao by lazy { FluxData.getInstance(application).infoDao }
+    val allInfos : LiveData<List<Info>> by lazy{ infoDao.loadAllLiveInfos() }
 
-    val allfluxs: LiveData<List<Flux>> by lazy{ fluxDao.loadAllLiveFlux() }
 
-
-    fun allflux():List<Flux>{
-        var lsF = emptyList<Flux>()
+    fun allInfo():List<Info>{
+        var lsinfo = emptyList<Info>()
         val tr = Thread{
 
             try{
-                lsF = fluxDao.loadAllFluxs()}
+                lsinfo = infoDao.loadAllInfos()}
             catch(e : SQLiteConstraintException){
                 Log.e("SQL_ERREUR",e.toString())
             }
@@ -29,16 +27,16 @@ class FluxModel(application: Application) : AndroidViewModel(application) {
         }
         tr.start()
         tr.join()
-        return lsF
+        return lsinfo
     }
 
-    fun ajouterFlux(f: Flux): Long {
+    fun addInfo(i: Info): List<Long> {
 
-        var ls : Long = -1
+        var ls = listOf<Long>()
         val tr = Thread{
 
             try{
-                ls = fluxDao.insertFlux(f)}
+                ls = infoDao.insertInfo(i)}
             catch(e : SQLiteConstraintException){
                 Log.e("SQL_ERREUR",e.toString())
             }
