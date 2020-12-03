@@ -32,17 +32,9 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
 
         infoView.title.text = info.title
         infoView.description.text = info.description
-        infoView.link.text = info.link
         infoView.newInfo.text = info.nouveau.toString()
         //infoView.pubDate.text = info.pubDate
-
-        infoView.setBackgroundColor(
-            if(position % 2 == 0){
-                Color.argb(30,0,220,0)
-            }else{
-                Color.argb(30,0,0,220)
-            }
-        )
+        
     }
 
     fun setListInfo(info: List<Info>){
