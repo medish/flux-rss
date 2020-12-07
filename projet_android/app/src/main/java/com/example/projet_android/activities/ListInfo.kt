@@ -1,5 +1,6 @@
 package com.example.projet_android.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -21,6 +22,9 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
     private var lsinfo = emptyList<Info>()
 
     override fun OnItemClick(position: Int) {
+        val aj = Intent(this, WebView::class.java)
+        aj.putExtra("link",lsinfo[position].link)
+        startActivity(aj)
         Toast.makeText(this, lsinfo[position].link, Toast.LENGTH_SHORT).show()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
