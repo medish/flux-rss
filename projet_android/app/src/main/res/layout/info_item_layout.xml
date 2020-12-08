@@ -36,5 +36,6 @@
             android:id="@+id/newInfo"
             android:text="isNew?"/>
 
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

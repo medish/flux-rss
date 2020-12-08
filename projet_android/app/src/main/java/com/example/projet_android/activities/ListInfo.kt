@@ -41,7 +41,9 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
         //infoModel.addInfo(i)
         lsinfo = infoModel.allInfo()
 
-
+        lsinfo.forEach{
+            infoModel.change_etat(it.id)
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

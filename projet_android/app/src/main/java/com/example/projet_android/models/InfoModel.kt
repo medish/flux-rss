@@ -46,4 +46,18 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         tr.join()
         return ls
     }
+
+    fun change_etat(id: Long){
+        val tr = Thread{
+
+            try{
+                 infoDao.change_etat(id)
+            } catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+
+        }
+        tr.start()
+        tr.join()
+    }
 }

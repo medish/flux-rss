@@ -25,4 +25,9 @@ interface InfoDao {
     @Query("DELETE  FROM Info WHERE id = :id")
     fun deleteInfo(id: Long)
 
+    @Query("UPDATE Info SET nouveau = 0 WHERE id = :id")
+    fun change_etat(id:Long)
+
+
+
 }
