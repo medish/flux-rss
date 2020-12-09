@@ -20,7 +20,7 @@ interface InfoDao {
 
     //TODO("add a query to update nouveau attribut ")
     @Query("SELECT * FROM Info WHERE nouveau ")
-    fun loadNouveauInfo(): LiveData<List<Info>>
+    fun loadNouveauInfo(): List<Info>
 
     @Query("DELETE  FROM Info WHERE id = :id")
     fun deleteInfo(id: Long)
@@ -28,6 +28,7 @@ interface InfoDao {
     @Query("UPDATE Info SET nouveau = 0 WHERE id = :id")
     fun change_etat(id:Long)
 
-
+    @Query("SELECT * FROM Info WHERE title LIKE :s")
+    fun recherche(s:String): List<Info>
 
 }

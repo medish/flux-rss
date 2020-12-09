@@ -60,4 +60,36 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         tr.start()
         tr.join()
     }
+
+    fun nouveau():List<Info>{
+        var lsinfo = emptyList<Info>()
+        val tr = Thread{
+
+            try{
+                lsinfo = infoDao.loadNouveauInfo()}
+            catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+
+        }
+        tr.start()
+        tr.join()
+        return lsinfo
+    }
+
+    fun recherche(s:String):List<Info>{
+        var lsinfo = emptyList<Info>()
+        val tr = Thread{
+
+            try{
+                lsinfo = infoDao.recherche("%"+s+"%")}
+            catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+
+        }
+        tr.start()
+        tr.join()
+        return lsinfo
+    }
 }

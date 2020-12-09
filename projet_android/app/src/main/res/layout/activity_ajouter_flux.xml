@@ -11,6 +11,7 @@
     tools:context=".activities.AjouterFlux"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
