@@ -92,4 +92,18 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         tr.join()
         return lsinfo
     }
+
+    fun delete(id:Long){
+        val tr = Thread{
+
+            try{
+                infoDao.deleteInfo(id)}
+            catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+
+        }
+        tr.start()
+        tr.join()
+    }
 }
