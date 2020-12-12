@@ -3,8 +3,8 @@ package com.example.projet_android.activities
 import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
+import android.net.Network
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +21,10 @@ import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
 import com.example.projet_android.models.FluxModel
+import com.example.projet_android.utils.NetworkConnectivity
+import com.example.projet_android.utils.NetworkConnectivity.Companion.OFFLINE
+import com.example.projet_android.utils.NetworkConnectivity.Companion.ON_MOBILE_DATA
+import com.example.projet_android.utils.NetworkConnectivity.Companion.getNetworkStatus
 import kotlinx.android.synthetic.main.activity_list_flux.*
 import java.lang.IllegalArgumentException
 
@@ -47,6 +51,7 @@ class ListFlux : AppCompatActivity() {
             recyclerViewAdapter.setListFlux(it)
         })
 
+        // swipe to delete a flux
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
@@ -67,15 +72,35 @@ class ListFlux : AppCompatActivity() {
         }.toMap()
 
         if (urls.isEmpty()) {
-            Toast.makeText(this@ListFlux, "Vous devez cochez au moins un flux", Toast.LENGTH_LONG)
+            Toast.makeText(this@ListFlux, "Vous devez séléctionnez au moins un flux", Toast.LENGTH_LONG)
                 .show()
             return
         }
 
-        launchDownload(urls)
+        connectivityDialog(urls)
     }
 
-
+    private fun connectivityDialog(urls: Map<Long, String>) {
+        val networkStatus = getNetworkStatus(this@ListFlux)
+        when (networkStatus) {
+            ON_MOBILE_DATA -> {
+                AlertDialog.Builder(this@ListFlux)
+                    .setMessage(R.string.network_mobile)
+                    .setPositiveButton(R.string.yes) { _, _ -> launchDownload(urls)}
+                    .setNeutralButton(R.string.cancel) { _, _ ->}
+                    .create()
+                    .show()
+            }
+            OFFLINE -> {
+                AlertDialog.Builder(this@ListFlux)
+                    .setMessage(R.string.network_offline)
+                    .setPositiveButton(R.string.ok) { _, _ ->}
+                    .create()
+                    .show()
+            }
+            else -> { launchDownload(urls)}
+        }
+    }
     private fun launchDownload(urls: Map<Long, String>) {
         val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
@@ -85,6 +110,9 @@ class ListFlux : AppCompatActivity() {
         for (url in urls) {
             try {
                 val request = DownloadManager.Request(Uri.parse(url.value))
+                    .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI.or(DownloadManager.Request.NETWORK_MOBILE))
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                    .setTitle("Téléchargement des flux")
                 val id = dm.enqueue(request)
                 sharedEditor.putLong(id.toString(), url.key)
             } catch (e: IllegalArgumentException) {

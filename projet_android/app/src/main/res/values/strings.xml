@@ -5,5 +5,8 @@
     <string name="add_flux">Ajouter un flux</string>
     <string name="confirm_delete_flux">Confirmez...</string>
     <string name="yes">Oui</string>
+    <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
+    <string name="network_offline">Vérifier votre connexion Internet et réessayer</string>
+    <string name="network_mobile">Vous êtes connecté via données mobile, Continuer ?</string>
 </resources>
