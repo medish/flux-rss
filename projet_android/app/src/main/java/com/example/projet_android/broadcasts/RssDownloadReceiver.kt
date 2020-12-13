@@ -1,6 +1,7 @@
 package com.example.projet_android.broadcasts
 
 import android.app.DownloadManager
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.example.projet_android.services.RssJobIntentService
+import com.example.projet_android.utils.DownloadNotificationBuilder
 import com.example.projet_android.utils.RssXmlParser
 import java.io.FileNotFoundException
 import java.lang.Exception
@@ -32,7 +34,13 @@ class RssDownloadReceiver : BroadcastReceiver() {
             Log.d("DOWNLOAD-RECEIVER", downloadID.toString())
 
             RssJobIntentService.enqueueWork(context, intent)
-            //dm.remove(downloadID)
+
+            // Download completed
+            if(sharedPreferences.all.isNotEmpty()) return
+
+            val notification = DownloadNotificationBuilder.build(context)
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(0, notification?.build())
         }
     }
 
@@ -40,6 +48,7 @@ class RssDownloadReceiver : BroadcastReceiver() {
         val sharedEditor = sharedPreferences.edit()
         sharedEditor.remove(downloadId.toString())
         sharedEditor.apply()
+
     }
 }
 

@@ -2,9 +2,11 @@ package com.example.projet_android.activities
 
 import android.app.AlertDialog
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.Network
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +23,10 @@ import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
 import com.example.projet_android.models.FluxModel
+import com.example.projet_android.utils.NetworkConnectivity
+import com.example.projet_android.utils.NetworkConnectivity.Companion.OFFLINE
+import com.example.projet_android.utils.NetworkConnectivity.Companion.ON_MOBILE_DATA
+import com.example.projet_android.utils.NetworkConnectivity.Companion.getNetworkStatus
 import kotlinx.android.synthetic.main.activity_list_flux.*
 import java.lang.IllegalArgumentException
 
@@ -47,8 +53,18 @@ class ListFlux : AppCompatActivity() {
             recyclerViewAdapter.setListFlux(it)
         })
 
+        // swipe to delete a flux
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        // register a filter to cancel downloads
+        val cancelFilter = IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+        registerReceiver(cancelReceiver, cancelFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(cancelReceiver)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -67,24 +83,48 @@ class ListFlux : AppCompatActivity() {
         }.toMap()
 
         if (urls.isEmpty()) {
-            Toast.makeText(this@ListFlux, "Vous devez cochez au moins un flux", Toast.LENGTH_LONG)
+            Toast.makeText(this@ListFlux, "Vous devez séléctionnez au moins un flux", Toast.LENGTH_LONG)
                 .show()
             return
         }
 
-        launchDownload(urls)
+        connectivityDialog(urls)
     }
 
-
+    private fun connectivityDialog(urls: Map<Long, String>) {
+        val networkStatus = getNetworkStatus(this@ListFlux)
+        when (networkStatus) {
+            ON_MOBILE_DATA -> {
+                AlertDialog.Builder(this@ListFlux)
+                    .setMessage(R.string.network_mobile)
+                    .setPositiveButton(R.string.yes) { _, _ -> launchDownload(urls)}
+                    .setNeutralButton(R.string.cancel) { _, _ ->}
+                    .create()
+                    .show()
+            }
+            OFFLINE -> {
+                AlertDialog.Builder(this@ListFlux)
+                    .setMessage(R.string.network_offline)
+                    .setPositiveButton(R.string.ok) { _, _ ->}
+                    .create()
+                    .show()
+            }
+            else -> { launchDownload(urls)}
+        }
+    }
     private fun launchDownload(urls: Map<Long, String>) {
         val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         val sharedPreferences = getSharedPreferences("DownloadsIds", MODE_PRIVATE)
         val sharedEditor = sharedPreferences.edit()
+        sharedEditor.clear()
 
         for (url in urls) {
             try {
                 val request = DownloadManager.Request(Uri.parse(url.value))
+                    .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI.or(DownloadManager.Request.NETWORK_MOBILE))
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                    .setTitle("RSS flux")
                 val id = dm.enqueue(request)
                 sharedEditor.putLong(id.toString(), url.key)
             } catch (e: IllegalArgumentException) {
@@ -93,6 +133,25 @@ class ListFlux : AppCompatActivity() {
         }
 
         sharedEditor.apply()
+
+    }
+
+    private val cancelReceiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+
+            val sharedPreferences = getSharedPreferences("DownloadsIds", MODE_PRIVATE)
+            val sharedEditor = sharedPreferences.edit()
+            val ids = sharedPreferences.all
+            for(id in ids){
+                dm.remove(id.key.toLong())
+                sharedEditor.remove(id.key)
+            }
+
+            sharedEditor.apply()
+            //Toast.makeText(this@ListFlux, "Aborted", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -103,7 +162,6 @@ class ListFlux : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-           // android.R.id.home    -> { finish(); true}
             R.id.add_flux_item -> { addFluxActivity() ;true }
             else -> { super.onOptionsItemSelected(item) }
         }
@@ -135,6 +193,8 @@ class ListFlux : AppCompatActivity() {
                 .show()
         }
     }
+
+
 
 
 
