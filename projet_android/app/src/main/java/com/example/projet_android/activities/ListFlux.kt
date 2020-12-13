@@ -1,8 +1,6 @@
 package com.example.projet_android.activities
 
-import android.app.AlertDialog
-import android.app.DownloadManager
-import android.app.TimePickerDialog
+import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -24,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Flux
 import com.example.projet_android.R
 import com.example.projet_android.adapters.FluxAdapter
+import com.example.projet_android.broadcasts.AlarmReceiver
 import com.example.projet_android.models.FluxModel
 import com.example.projet_android.utils.NetworkConnectivity
 import com.example.projet_android.utils.NetworkConnectivity.Companion.OFFLINE
@@ -36,6 +35,7 @@ import kotlin.math.min
 
 class ListFlux : AppCompatActivity() {
     private val REQUEST_ADD_FLUX = 1
+    private val REQUEST_ALARM_NOTIFICATION = 2
 
     private lateinit var fluxModel: FluxModel
     private val recyclerViewAdapter: FluxAdapter = FluxAdapter()
@@ -154,6 +154,16 @@ class ListFlux : AppCompatActivity() {
 
     private val onTimePickListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
         Toast.makeText(this@ListFlux, "Hour: $hourOfDay - Minute: $minute", Toast.LENGTH_LONG).show()
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this@ListFlux, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this@ListFlux, REQUEST_ALARM_NOTIFICATION, intent, 0)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
     }
 
     private val cancelReceiver = object : BroadcastReceiver(){
