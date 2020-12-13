@@ -15,11 +15,27 @@ tools:context=".activities.ListFlux">
     android:layout_weight="1"
     tools:listitem="@layout/flux_item_layout"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="downloadFlux"
         android:background="@color/colorPrimary"
-        android:text="Download"/>
+        android:text="Download"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="scheduleFluxs"
+        android:background="@color/colorAccent"
+        android:text="Plannifier"
+        android:layout_weight="1"/>
+
+        </LinearLayout>
+
 
 </LinearLayout>

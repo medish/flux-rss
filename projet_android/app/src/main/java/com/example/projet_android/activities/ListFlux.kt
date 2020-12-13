@@ -2,6 +2,7 @@ package com.example.projet_android.activities
 
 import android.app.AlertDialog
 import android.app.DownloadManager
+import android.app.TimePickerDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.net.Network
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,6 +31,8 @@ import com.example.projet_android.utils.NetworkConnectivity.Companion.ON_MOBILE_
 import com.example.projet_android.utils.NetworkConnectivity.Companion.getNetworkStatus
 import kotlinx.android.synthetic.main.activity_list_flux.*
 import java.lang.IllegalArgumentException
+import java.util.*
+import kotlin.math.min
 
 class ListFlux : AppCompatActivity() {
     private val REQUEST_ADD_FLUX = 1
@@ -91,6 +95,7 @@ class ListFlux : AppCompatActivity() {
         connectivityDialog(urls)
     }
 
+
     private fun connectivityDialog(urls: Map<Long, String>) {
         val networkStatus = getNetworkStatus(this@ListFlux)
         when (networkStatus) {
@@ -134,6 +139,21 @@ class ListFlux : AppCompatActivity() {
 
         sharedEditor.apply()
 
+    }
+
+
+
+    fun scheduleFluxs(view: View) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePicker = TimePickerDialog(this@ListFlux, onTimePickListener, hour, minute, DateFormat.is24HourFormat(this@ListFlux))
+        timePicker.show()
+    }
+
+    private val onTimePickListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+        Toast.makeText(this@ListFlux, "Hour: $hourOfDay - Minute: $minute", Toast.LENGTH_LONG).show()
     }
 
     private val cancelReceiver = object : BroadcastReceiver(){
@@ -193,8 +213,6 @@ class ListFlux : AppCompatActivity() {
                 .show()
         }
     }
-
-
 
 
 
