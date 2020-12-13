@@ -20,17 +20,19 @@ tools:context=".activities.ListFlux">
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <Button
+        android:id="@+id/downloadButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="downloadFlux"
+        android:onClick="downloadFluxAction"
         android:background="@color/colorPrimary"
         android:text="Download"
         android:layout_weight="1"/>
 
     <Button
+        android:id="@+id/scheduleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="scheduleFluxs"
+        android:onClick="downloadFluxAction"
         android:background="@color/colorAccent"
         android:text="Plannifier"
         android:layout_weight="1"/>

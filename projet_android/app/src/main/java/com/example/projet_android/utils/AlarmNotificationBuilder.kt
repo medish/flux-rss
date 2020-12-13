@@ -20,11 +20,15 @@ class AlarmNotificationBuilder {
             }
 
 
+
             val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle(context.resources.getString(R.string.alarm_notif_title))
-                .setContentText(context.resources.getString(R.string.alarm_notif_content))
                 .setAutoCancel(false)
                 .setSmallIcon(R.drawable.ic_alarm)
+                .setAutoCancel(true)
+                .setStyle(NotificationCompat.BigTextStyle()
+                    .bigText(context.resources.getString(R.string.alarm_notif_content))
+                    .setBigContentTitle(context.resources.getString(R.string.alarm_notif_title))
+                    .setSummaryText("Alarm"))
 
             return notification
         }
