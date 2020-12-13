@@ -11,4 +11,6 @@
     <string name="network_mobile">Vous êtes connecté via données mobile, Continuer ?</string>
     <string name="download_notif_title">Rss flux téléchargment</string>
     <string name="download_notif_content">Cliquer pour voir les nouveautés</string>
+    <string name="alarm_notif_title">Rss alarm</string>
+    <string name="alarm_notif_content">Cliquer pour annuler l\'alarme</string>
 </resources>

@@ -63,4 +63,15 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
         return lsFlux[position]
     }
 
+    fun getSelectedFlux(): List<Flux> {
+        return lsFlux.filter { it.isChecked }
+    }
+
+    fun getMapFromSelectedFlux() : Map<Long, String> {
+        // Map< Key = fluxid, value = url>
+        return lsFlux.mapNotNull {
+                if (it.isChecked) { it.id to it.url } else null
+            }.toMap()
+    }
+
 }
