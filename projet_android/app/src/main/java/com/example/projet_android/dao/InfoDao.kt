@@ -19,8 +19,8 @@ interface InfoDao {
     fun loadAllInfos(): List<Info>
 
     //TODO("add a query to update nouveau attribut ")
-    @Query("SELECT * FROM Info WHERE nouveau ")
-    fun loadNouveauInfo(): List<Info>
+    @Query("SELECT * FROM Info WHERE nouveau = :etat")
+    fun loadNouveauInfo(etat: Boolean): List<Info>
 
     @Query("DELETE  FROM Info WHERE id = :id")
     fun deleteInfo(id: Long)

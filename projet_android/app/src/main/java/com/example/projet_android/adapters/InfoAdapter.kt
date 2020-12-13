@@ -4,14 +4,17 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Info
 import com.example.projet_android.R
+import com.example.projet_android.models.InfoModel
 import kotlinx.android.synthetic.main.info_item_layout.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
     private var lsInfo = emptyList<Info>()
     private lateinit var listener : OnItemClickListener
+
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener{
         init {
             itemView.setOnClickListener(this)

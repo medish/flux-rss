@@ -97,12 +97,10 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
 
         return when (item.itemId) {
             // android.R.id.home    -> { finish(); true}
-            R.id.nouveau -> { lsinfo = infoModel.nouveau()
 
-                              lsinfo.forEach{
-                                infoModel.change_etat(it.id)
-                               }
+            R.id.nouveau -> {
 
+                              lsinfo = infoModel.nouveau()
                               recyclerViewAdapter.setListInfo(lsinfo)
                                ;true }
             else -> { super.onOptionsItemSelected(item) }

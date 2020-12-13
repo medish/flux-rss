@@ -63,10 +63,12 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
 
     fun nouveau():List<Info>{
         var lsinfo = emptyList<Info>()
+
         val tr = Thread{
 
             try{
-                lsinfo = infoDao.loadNouveauInfo()}
+                lsinfo = infoDao.loadNouveauInfo(true)
+                }
             catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
