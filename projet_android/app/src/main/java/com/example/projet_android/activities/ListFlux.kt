@@ -2,8 +2,10 @@ package com.example.projet_android.activities
 
 import android.app.AlertDialog
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Network
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +56,15 @@ class ListFlux : AppCompatActivity() {
         // swipe to delete a flux
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        // register a filter to cancel downloads
+        val cancelFilter = IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+        registerReceiver(cancelReceiver, cancelFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(cancelReceiver)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,6 +136,24 @@ class ListFlux : AppCompatActivity() {
 
     }
 
+    private val cancelReceiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+
+            val sharedPreferences = getSharedPreferences("DownloadsIds", MODE_PRIVATE)
+            val sharedEditor = sharedPreferences.edit()
+            val ids = sharedPreferences.all
+            for(id in ids){
+                dm.remove(id.key.toLong())
+                sharedEditor.remove(id.key)
+            }
+
+            sharedEditor.apply()
+            //Toast.makeText(this@ListFlux, "Aborted", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.flux_menu, menu)
         return true
@@ -164,6 +193,8 @@ class ListFlux : AppCompatActivity() {
                 .show()
         }
     }
+
+
 
 
 

@@ -35,7 +35,6 @@ class RssDownloadReceiver : BroadcastReceiver() {
 
             RssJobIntentService.enqueueWork(context, intent)
 
-
             // Download completed
             if(sharedPreferences.all.isNotEmpty()) return
 
