@@ -26,7 +26,7 @@ class RssJobIntentService : JobIntentService() {
         Log.d(TAG, uri)
 
         try{
-            val istream = contentResolver.openInputStream(Uri.parse(uri))
+            val istream = contentResolver.openInputStream(Uri.parse(uri)) ?: return
             val doc = RssXmlParser.xmlToDocument(istream)
             val infoList = RssXmlParser.analyseRssXml(doc, fluxId)
 
@@ -39,5 +39,7 @@ class RssJobIntentService : JobIntentService() {
         }catch (e : FileNotFoundException){
             e.printStackTrace()
         }
+
+
     }
 }

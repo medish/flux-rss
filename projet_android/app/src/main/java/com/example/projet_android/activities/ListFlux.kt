@@ -106,13 +106,14 @@ class ListFlux : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("DownloadsIds", MODE_PRIVATE)
         val sharedEditor = sharedPreferences.edit()
+        sharedEditor.clear()
 
         for (url in urls) {
             try {
                 val request = DownloadManager.Request(Uri.parse(url.value))
                     .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI.or(DownloadManager.Request.NETWORK_MOBILE))
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                    .setTitle("Téléchargement des flux")
+                    .setTitle("RSS flux")
                 val id = dm.enqueue(request)
                 sharedEditor.putLong(id.toString(), url.key)
             } catch (e: IllegalArgumentException) {
@@ -121,6 +122,7 @@ class ListFlux : AppCompatActivity() {
         }
 
         sharedEditor.apply()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -131,7 +133,6 @@ class ListFlux : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-           // android.R.id.home    -> { finish(); true}
             R.id.add_flux_item -> { addFluxActivity() ;true }
             else -> { super.onOptionsItemSelected(item) }
         }

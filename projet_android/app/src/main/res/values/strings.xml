@@ -9,4 +9,6 @@
     <string name="cancel">Annuler</string>
     <string name="network_offline">Vérifier votre connexion Internet et réessayer</string>
     <string name="network_mobile">Vous êtes connecté via données mobile, Continuer ?</string>
+    <string name="download_notif_title">Rss flux téléchargment</string>
+    <string name="download_notif_content">Cliquer pour voir les nouveautés</string>
 </resources>
