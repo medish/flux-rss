@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Info
@@ -21,45 +22,14 @@ import com.example.projet_android.R
 import com.example.projet_android.adapters.InfoAdapter
 import com.example.projet_android.models.FluxModel
 import com.example.projet_android.models.InfoModel
+import kotlinx.android.synthetic.main.activity_list_flux.*
+import kotlinx.android.synthetic.main.activity_list_info.*
 
-class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
+class ListInfo : AppCompatActivity(){
     private lateinit var infoModel: InfoModel
-    lateinit var e :EditText
     private val recyclerViewAdapter: InfoAdapter = InfoAdapter()
     private var lsinfo = emptyList<Info>()
 
-
-    override fun OnItemClick(position: Int) {
-        
-        AlertDialog.Builder(this)
-            .setMessage("Action à faire?")
-            .setTitle("ACTION")    .setCancelable(false)
-            .setPositiveButton("affiche pageweb") { dialog: DialogInterface, t: Int ->
-                val aj = Intent(this, WebView::class.java)
-                aj.putExtra("link",lsinfo[position].link)
-                startActivity(aj)
-                dialog.dismiss()    }
-            .setNegativeButton("Supprime info") { _ , _ ->
-                alert(position)
-                Log.d("Message", "NO")}
-            .setNeutralButton("Cancel") { dialogue, _ ->
-                dialogue.cancel()
-                Log.d("Message", "cancel")}.show()
-
-
-    }
-
-    fun alert(position: Int){
-        AlertDialog.Builder(this)
-            .setMessage("Supprimer l'info?")
-            .setTitle("ALERT")    .setCancelable(false)
-            .setPositiveButton("OUI") { dialog: DialogInterface, t: Int ->
-                infoModel.delete(lsinfo[position].id)
-                dialog.dismiss()    }
-            .setNeutralButton("Cancel") { dialogue, _ ->
-                dialogue.cancel()
-                Log.d("Message", "cancel")}.show()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,24 +38,22 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //just a test
-        //val i = Info("test","just a test2222","www.test.com",true,6)
-
-        e = findViewById(R.id.recherche)
 
         infoModel = ViewModelProvider(this).get(InfoModel::class.java)
-        //infoModel.addInfo(i)
 
         lsinfo = infoModel.allInfo()
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewAdapter
-        recyclerViewAdapter.setListener(this)
 
         infoModel.allInfos.observe(this, Observer {
             recyclerViewAdapter.setListInfo(it)
         })
+
+        // swipe to delete an info
+        val itemTouchHelper = ItemTouchHelper(swipeCallBack)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,8 +64,6 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-            // android.R.id.home    -> { finish(); true}
-
             R.id.nouveau -> {
 
                               lsinfo = infoModel.nouveau()
@@ -110,8 +76,46 @@ class ListInfo : AppCompatActivity(), InfoAdapter.OnItemClickListener {
 
     fun recherche(view: View) {
 
-        lsinfo = infoModel.recherche(e.text.toString().trim())
+        lsinfo = infoModel.recherche(recherche.text.toString().trim())
         recyclerViewAdapter.setListInfo(lsinfo)
 
+    }
+
+
+    private val swipeCallBack = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT.or(ItemTouchHelper.LEFT)) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            // swipe LEFT, to delete
+            val position = viewHolder.adapterPosition
+            val info = recyclerViewAdapter.getInfoAt(position)
+
+            if(direction == ItemTouchHelper.LEFT){
+
+                android.app.AlertDialog.Builder(viewHolder.itemView.context)
+                    .setMessage(R.string.confirm_delete_flux)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        infoModel.delete(info.id)
+                    }
+                    .setNegativeButton(R.string.cancel){_,_->
+                        recyclerViewAdapter.notifyItemChanged(position)
+                    }
+                    .create()
+                    .show()
+            }
+
+            // swipe RIGHT, to open PageWeb
+            else if(direction == ItemTouchHelper.RIGHT){
+                val webView = Intent(applicationContext, WebView::class.java)
+                webView.putExtra("link", info.link)
+                recyclerViewAdapter.notifyItemChanged(position)
+                startActivity(webView)
+            }
+
+
+
+        }
     }
 }

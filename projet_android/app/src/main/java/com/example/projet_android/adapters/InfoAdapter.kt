@@ -14,24 +14,8 @@ import kotlinx.android.synthetic.main.info_item_layout.view.*
 
 class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
     private var lsInfo = emptyList<Info>()
-    private lateinit var listener : OnItemClickListener
 
-    inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener{
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            val pos = adapterPosition
-            if(pos != RecyclerView.NO_POSITION){
-                listener.OnItemClick(pos)
-            }
-        }
-    }
-
-    interface OnItemClickListener{
-        fun OnItemClick(position: Int)
-    }
+    inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun getItemCount(): Int {
         return lsInfo.size
@@ -63,7 +47,8 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
         notifyDataSetChanged()
     }
 
-    fun setListener(l:OnItemClickListener){
-        listener = l
+    fun getInfoAt(pos : Int) : Info{
+        return lsInfo[pos]
     }
+
 }

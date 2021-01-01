@@ -47,11 +47,11 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         return ls
     }
 
-    fun change_etat(id: Long){
+    fun changeEtatInfo(id: Long){
         val tr = Thread{
 
             try{
-                 infoDao.change_etat(id)
+                 infoDao.changeEtatInfo(id)
             } catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }
@@ -67,6 +67,7 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         val tr = Thread{
 
             try{
+                // false => already consulted
                 lsinfo = infoDao.loadNouveauInfo(true)
                 }
             catch(e : SQLiteException){
@@ -84,7 +85,7 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         val tr = Thread{
 
             try{
-                lsinfo = infoDao.recherche("%"+s+"%")}
+                lsinfo = infoDao.recherche("%$s%")}
             catch(e : SQLiteException){
                 Log.e("SQL_ERREUR",e.toString())
             }

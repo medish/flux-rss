@@ -13,7 +13,7 @@ class WebView : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
 
         webView.webViewClient = WebViewClient()
-        url = intent.getStringExtra("link").toString()
+        url = intent.getStringExtra("link") ?: ""
         webView.loadUrl(url)
     }
 }
