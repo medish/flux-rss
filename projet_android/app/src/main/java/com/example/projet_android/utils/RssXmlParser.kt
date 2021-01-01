@@ -6,8 +6,6 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.FileNotFoundException
 import java.io.InputStream
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
@@ -53,13 +51,19 @@ class RssXmlParser{
                 val pubString = dateConverter.rssDateToFormat(pubDate.textContent)
                 val pubStringToDate = dateConverter.toDate(pubString) ?: Date()
 
+                val imageElement = item.getElementsByTagName("media:content").item(0) ?: null
+                val imageUrl =
+                    if(imageElement == null) ""
+                    else (imageElement as Element).getAttribute("url")
+
                 val info = Info(
                     title.textContent,
                     description.textContent,
                     link.textContent,
                     true,
                     fluxId,
-                    pubStringToDate
+                    pubStringToDate,
+                    imageUrl
                 )
                 infoList.add(info)
             }

@@ -1,41 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:text="TITLE"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:text="Description"/>
 
-        <TextView
+        <ImageView
+            android:id="@+id/imageInfo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            >
+        </ImageView>
+
+        <RelativeLayout
+            android:id="@+id/itemsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pubDate"
-            android:text="Pub date"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/newInfo"
-            android:text="isNew?"/>
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:text="TITLE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"
+                android:text="Description"
+                android:layout_below="@id/title"/>
+
+            <Space
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_below="@id/description">
+
+            </Space>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pubDate"
+                android:text="Pub date"
+                android:layout_below="@id/empty_view"/>
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/newInfo"
+                android:src="@drawable/ic_new_info"
+                android:layout_below="@id/empty_view"
+                android:layout_alignParentEnd="true"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

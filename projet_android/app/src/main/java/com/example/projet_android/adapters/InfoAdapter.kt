@@ -10,9 +10,10 @@ import com.example.projet_android.entities.Info
 import com.example.projet_android.R
 import com.example.projet_android.entities.DateConverter
 import com.example.projet_android.models.InfoModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.info_item_layout.view.*
 
-class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
+class InfoAdapter (): RecyclerView.Adapter<InfoAdapter.VH>() {
     private var lsInfo = emptyList<Info>()
 
     inner class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -35,10 +36,16 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
 
         infoView.title.text = info.title
         infoView.description.text = info.description
-        infoView.newInfo.text = info.nouveau.toString()
+        if(! info.nouveau)
+            infoView.newInfo.visibility = View.INVISIBLE
 
         val pubDate = DateConverter().dateToFormat(info.pubDate)
         infoView.pubDate.text = pubDate
+
+        if(info.imageUrl.isEmpty())
+            infoView.imageInfo.setImageResource(R.drawable.ic_image_info_error)
+        else
+            Picasso.get().load(info.imageUrl).into(infoView.imageInfo)
         
     }
 

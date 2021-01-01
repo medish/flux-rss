@@ -20,10 +20,11 @@ data class Info(
     var nouveau:Boolean,
     var fluxid: Long,
     @TypeConverters(DateConverter::class)
-    var pubDate : Date
+    var pubDate : Date,
+    var imageUrl : String
 ){
-    constructor(title: String, description: String, link: String, nouveau: Boolean, fluxid: Long, pubDate: Date) :
-            this(0, title, description, link, nouveau, fluxid, pubDate)
+    constructor(title: String, description: String, link: String, nouveau: Boolean, fluxid: Long, pubDate: Date, imageUrl: String) :
+            this(0, title, description, link, nouveau, fluxid, pubDate, imageUrl)
 
 
 }
