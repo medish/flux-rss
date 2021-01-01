@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_android.entities.Info
 import com.example.projet_android.R
+import com.example.projet_android.entities.DateConverter
 import com.example.projet_android.models.InfoModel
 import kotlinx.android.synthetic.main.info_item_layout.view.*
 
@@ -51,7 +52,9 @@ class InfoAdapter: RecyclerView.Adapter<InfoAdapter.VH>() {
         infoView.title.text = info.title
         infoView.description.text = info.description
         infoView.newInfo.text = info.nouveau.toString()
-        //infoView.pubDate.text = info.pubDate
+
+        val pubDate = DateConverter().dateToFormat(info.pubDate)
+        infoView.pubDate.text = pubDate
         
     }
 

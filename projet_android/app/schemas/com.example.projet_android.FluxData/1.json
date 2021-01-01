@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "086d37ea7bc8a32c48f99f6502df8d6f",
+    "identityHash": "8dd4cb38bb6b824fc1f2d9be61a8a686",
     "entities": [
       {
         "tableName": "Flux",
@@ -53,7 +53,7 @@
       },
       {
         "tableName": "Info",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `link` TEXT NOT NULL, `nouveau` INTEGER NOT NULL, `fluxid` INTEGER NOT NULL, FOREIGN KEY(`fluxid`) REFERENCES `Flux`(`id`) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `link` TEXT NOT NULL, `nouveau` INTEGER NOT NULL, `fluxid` INTEGER NOT NULL, `pubDate` TEXT NOT NULL, FOREIGN KEY(`fluxid`) REFERENCES `Flux`(`id`) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "id",
@@ -90,6 +90,12 @@
             "columnName": "fluxid",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "pubDate",
+            "columnName": "pubDate",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -117,7 +123,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '086d37ea7bc8a32c48f99f6502df8d6f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8dd4cb38bb6b824fc1f2d9be61a8a686')"
     ]
   }
 }
