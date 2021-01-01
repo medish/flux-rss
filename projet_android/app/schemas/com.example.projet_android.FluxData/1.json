@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8dd4cb38bb6b824fc1f2d9be61a8a686",
+    "identityHash": "1413dcab7de41c32b2f89975f344c85d",
     "entities": [
       {
         "tableName": "Flux",
@@ -53,7 +53,7 @@
       },
       {
         "tableName": "Info",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `link` TEXT NOT NULL, `nouveau` INTEGER NOT NULL, `fluxid` INTEGER NOT NULL, `pubDate` TEXT NOT NULL, FOREIGN KEY(`fluxid`) REFERENCES `Flux`(`id`) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `link` TEXT NOT NULL, `nouveau` INTEGER NOT NULL, `fluxid` INTEGER NOT NULL, `pubDate` INTEGER NOT NULL, FOREIGN KEY(`fluxid`) REFERENCES `Flux`(`id`) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "id",
@@ -94,7 +94,7 @@
           {
             "fieldPath": "pubDate",
             "columnName": "pubDate",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -104,7 +104,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Info_pubDate",
+            "unique": true,
+            "columnNames": [
+              "pubDate"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Info_pubDate` ON `${TABLE_NAME}` (`pubDate`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Flux",
@@ -123,7 +132,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8dd4cb38bb6b824fc1f2d9be61a8a686')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1413dcab7de41c32b2f89975f344c85d')"
     ]
   }
 }

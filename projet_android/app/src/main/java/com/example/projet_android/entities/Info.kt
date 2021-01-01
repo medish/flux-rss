@@ -7,7 +7,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@Entity(foreignKeys = [ForeignKey(entity = Flux::class, parentColumns = ["id"] , childColumns = ["fluxid"],deferred = true, onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)])
+@Entity(foreignKeys = [ForeignKey(entity = Flux::class, parentColumns = ["id"] , childColumns = ["fluxid"],deferred = true,
+    onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)]
+    , indices = [Index( value = ["pubDate"], unique = true)])
+
 data class Info(
     @PrimaryKey(autoGenerate =true)
     var id: Long,
@@ -32,25 +35,19 @@ data class Info(
 
     }
       @TypeConverter
-      fun toDate(value : String?) : Date? {
-          return value?.let {
-              return try {
-                  dateFormat.parse(it)
-              } catch (e : ParseException){
-                  null
-              }
-          }
+      fun toDate(value : Long?) : Date? {
+          return value?.let { Date(it) }
       }
       @TypeConverter
-      fun toTimestamp(date : Date?) : String?{
+      fun toTimestamp(date : Date?) : Long?{
 
-          return date?.toString()
+          return date?.time
       }
 
-      fun rssDateToFormat(value : String) : String {
+      fun rssDateToFormat(value : String) : Long {
           val rssDate = rssFormat.parse(value) ?: Date()
 
-          return dateFormat.format(rssDate)
+          return rssDate.time
       }
 
       fun dateToFormat(date : Date) : String{
