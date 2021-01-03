@@ -135,8 +135,8 @@ class ListInfo : AppCompatActivity(){
 
     private fun filterSearchDialog(sortPos : Int, pubDatePos : Int, filtrePos : Int){
         // Sort
-        // 0 -> ORDER BY Date ASC
-        // 1 -> ORDER BY Date DESC
+        // 0 -> ORDER BY Date DESC
+        // 1 -> ORDER BY Date ASC
 
         // pubDate
         // 0 -> NO

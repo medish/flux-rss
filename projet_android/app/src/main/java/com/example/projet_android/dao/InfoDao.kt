@@ -12,7 +12,7 @@ interface InfoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertInfo(vararg info: Info) : List<Long>
 
-    @Query("SELECT * FROM Info")
+    @Query("SELECT * FROM Info ORDER BY pubDate ASC")
     fun loadAllLiveInfos(): LiveData<List<Info>>
 
     @Query("SELECT * FROM Info")

@@ -34,24 +34,30 @@ data class Info(
 
   class DateConverter{
     companion object {
-        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") as DateFormat
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm") as DateFormat
         private val rssFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z") as DateFormat
 
     }
       @TypeConverter
-      fun toDate(value : Long?) : Date? {
-          return value?.let { Date(it) }
+      fun toDate(value : String?) : Date? {
+          return value?.let {
+              return dateFormat.parse(value)
+          }
       }
       @TypeConverter
-      fun toTimestamp(date : Date?) : Long?{
+      fun toTimestamp(date : Date?) : String?{
 
-          return date?.time
+          return date?.let {
+              return dateFormat.format(it)
+          }
       }
 
-      fun rssDateToFormat(value : String) : Long {
-          val rssDate = rssFormat.parse(value) ?: Date()
-
-          return rssDate.time
+      fun rssDateToFormat(value : String) : Date {
+          return try {
+              rssFormat.parse(value)!!
+          }catch (e : ParseException){
+              Date()
+          }
       }
 
       fun dateToFormat(date : Date) : String{

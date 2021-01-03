@@ -47,9 +47,7 @@ class RssXmlParser{
                 val description = item.getElementsByTagName("description").item(0)
 
                 val pubDate = item.getElementsByTagName("pubDate").item(0)
-                val dateConverter = DateConverter()
-                val pubString = dateConverter.rssDateToFormat(pubDate.textContent)
-                val pubStringToDate = dateConverter.toDate(pubString) ?: Date()
+                val pubRssToDate = DateConverter().rssDateToFormat(pubDate.textContent)
 
                 val imageElement = item.getElementsByTagName("media:content").item(0) ?: null
                 val imageUrl =
@@ -62,7 +60,7 @@ class RssXmlParser{
                     link.textContent,
                     true,
                     fluxId,
-                    pubStringToDate,
+                    pubRssToDate,
                     imageUrl
                 )
                 infoList.add(info)
