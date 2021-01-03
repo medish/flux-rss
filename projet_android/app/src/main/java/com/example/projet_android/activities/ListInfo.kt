@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -31,10 +32,6 @@ class ListInfo : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_info)
-
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
 
         infoModel = ViewModelProvider(this).get(InfoModel::class.java)
 
@@ -65,12 +62,20 @@ class ListInfo : AppCompatActivity(){
             val ids = recyclerViewAdapter.lsInfo.mapNotNull { if(it.isConsulted) it.id else null}
             if(ids.isNotEmpty()) infoModel.changeEtatInfo(ids)
 
+            if(listInfo.isEmpty()){
+                infoRecyclerLayoutEmpty.visibility = View.VISIBLE
+                recyclerViewInfo.visibility = View.GONE
+            }else {
+                infoRecyclerLayoutEmpty.visibility = View.GONE
+                recyclerViewInfo.visibility = View.VISIBLE
+            }
             recyclerViewAdapter.setListInfo(listInfo)
         })
 
         // swipe to delete an info
         val itemTouchHelper = ItemTouchHelper(swipeCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerViewInfo)
+
     }
 
     override fun onPause() {

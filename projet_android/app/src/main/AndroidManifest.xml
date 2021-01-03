@@ -21,7 +21,7 @@
             android:name=".activities.WebView"
             android:parentActivityName=".activities.ListInfo"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             />
         <activity
             android:name=".activities.ListInfo"
@@ -35,17 +35,12 @@
         <activity
             android:name=".activities.ListFlux"
             android:label="@string/flux_activity_name"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.ListInfo" />
+            android:launchMode="singleTask"
+            android:parentActivityName=".activities.ListInfo"/>
         <activity
             android:name=".activities.AjouterFlux"
             android:label="@string/add_flux"
             android:parentActivityName=".activities.ListFlux" />
-        <activity android:name=".activities.MainActivity">
-
-
-        </activity>
-
         <receiver
             android:name=".broadcasts.RssDownloadReceiver">
             <intent-filter>

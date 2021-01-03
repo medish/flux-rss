@@ -56,6 +56,13 @@ class ListFlux : AppCompatActivity() {
         recyclerViewFlux.adapter = recyclerViewAdapter
 
         fluxModel.allfluxs.observe(this, Observer {
+            if(it.isEmpty()){
+                fluxRecyclerLayoutEmpty.visibility = View.VISIBLE
+                fluxRecyclerLayoutNotEmpty.visibility = View.GONE
+            }else {
+                fluxRecyclerLayoutEmpty.visibility = View.GONE
+                fluxRecyclerLayoutNotEmpty.visibility = View.VISIBLE
+            }
             recyclerViewAdapter.setListFlux(it)
         })
 
@@ -66,6 +73,9 @@ class ListFlux : AppCompatActivity() {
         // register a filter to cancel downloads
         val cancelFilter = IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
         registerReceiver(cancelReceiver, cancelFilter)
+
+
+
     }
 
     override fun onDestroy() {
@@ -76,7 +86,7 @@ class ListFlux : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == REQUEST_ADD_FLUX && resultCode == RESULT_OK){
             val fluxId = data?.getLongExtra("fluxId", -1)
-            Toast.makeText(this@ListFlux,"Le flux $fluxId est bien ajouté", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ListFlux,"Le flux est bien ajouté", Toast.LENGTH_SHORT).show()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RSS</string>
     <string name="flux_activity_name">Flux</string>
-    <string name="info_activity_name">Infos</string>
+    <string name="info_activity_name">RSS</string>
     <string name="add_flux">Ajouter un flux</string>
     <string name="confirm_delete_flux">Confirmez-vous la suppression ?</string>
     <string name="yes">Oui</string>
@@ -13,7 +13,9 @@
     <string name="download_notif_content">Cliquer pour voir les nouveautés</string>
     <string name="alarm_notif_title">Rss alarm</string>
     <string name="alarm_notif_content">Cliquer pour annuler l\'alarme</string>
-
+    <string name="empty_list">Oups... La liste est vide</string>
+    <string name="info_empty_list">Vous devez télécharger des nouveaux articles</string>
+    <string name="flux_empty_list">Vous devez ajouter au moins un flux</string>
 
     <string-array name="sort">
         <item>Les plus récents</item>
