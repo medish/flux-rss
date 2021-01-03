@@ -26,7 +26,7 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
             .from(parent.context)
             .inflate(R.layout.flux_item_layout, parent,false)
 
-        v.flux_checkbox.setOnClickListener { view ->
+        val onClick = View.OnClickListener { view ->
             val checkBox = view as CheckBox
             val position = checkBox.tag as Int
             val flux = lsFlux[position]
@@ -36,6 +36,7 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
             val cardView = v as CardView
             cardView.setCardBackgroundColor(color)
         }
+        v.flux_checkbox.setOnClickListener(onClick)
 
 
 
@@ -48,7 +49,6 @@ class FluxAdapter (): RecyclerView.Adapter<FluxAdapter.VH>() {
 
         fluxView.source.text = flux.source
         fluxView.tags.text = flux.tag
-        fluxView.url.text = flux.url
         fluxView.flux_checkbox.isChecked = flux.isChecked
         fluxView.flux_checkbox.tag = position
 

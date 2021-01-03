@@ -33,7 +33,7 @@ class ListInfo : AppCompatActivity(){
         setContentView(R.layout.activity_list_info)
 
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 
         infoModel = ViewModelProvider(this).get(InfoModel::class.java)
@@ -110,7 +110,13 @@ class ListInfo : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.filter_button -> { openFilterDialog() ;true }
+            R.id.rss_flux_item -> {
+                val fluxIntent = Intent(this, ListFlux::class.java)
+                startActivity(fluxIntent)
+                true
+            }
             else -> { super.onOptionsItemSelected(item) }
+
         }
     }
 

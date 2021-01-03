@@ -37,6 +37,7 @@ data class Info(
     companion object {
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") as DateFormat
         private val rssFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z") as DateFormat
+        private val outPutFormat = SimpleDateFormat("EEEE, d MMM yyyy HH:mm", Locale.getDefault()) as DateFormat
 
     }
       @TypeConverter
@@ -63,5 +64,9 @@ data class Info(
 
       fun dateToFormat(date : Date) : String{
           return dateFormat.format(date)
+      }
+
+      fun dateToOutputFormat(date : Date) : String{
+          return outPutFormat.format(date)
       }
 }

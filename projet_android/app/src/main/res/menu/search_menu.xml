@@ -11,4 +11,9 @@
         android:id="@+id/filter_button"
         android:icon="@drawable/ic_filter"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/rss_flux_item"
+        android:icon="@drawable/ic_rss_flux"
+        app:showAsAction="ifRoom"
+        />
 </menu>

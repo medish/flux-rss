@@ -50,7 +50,7 @@ class InfoAdapter (): RecyclerView.Adapter<InfoAdapter.VH>(){
 
 
 
-        val pubDate = DateConverter().dateToFormat(info.pubDate)
+        val pubDate = DateConverter().dateToOutputFormat(info.pubDate)
         infoView.pubDate.text = pubDate
 
         if(info.imageUrl.isEmpty())

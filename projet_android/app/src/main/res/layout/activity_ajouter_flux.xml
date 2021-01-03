@@ -5,92 +5,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context=".activities.AjouterFlux"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:gravity="center">
 
-    <GridLayout
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:rowCount="1"
-        android:columnCount="1"
-        >
-        <androidx.cardview.widget.CardView
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="10dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_gravity="fill"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
-            <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center_vertical|center_horizontal">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SOURCE " />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/source_edit"/>
-    </LinearLayout>
+            android:id="@+id/source_edit"
+            android:hint="Nom de la source"
+            android:layout_margin="20dp"
+            android:background="@drawable/custom_edit"
+            android:ems="10"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:paddingStart="5dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TAG " />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tag_edit"/>
-    </LinearLayout>
+            android:id="@+id/tag_edit"
+            android:layout_margin="20dp"
+            android:hint="Nom du tag"
+            android:background="@drawable/custom_edit"
+            android:ems="10"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:paddingStart="5dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="URL" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/url_edit"/>
-    </LinearLayout>
-
+            android:id="@+id/url_edit"
+            android:layout_margin="20dp"
+            android:hint="URL de RSS"
+            android:background="@drawable/custom_edit"
+            android:ems="10"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:paddingStart="5dp"/>
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ajouter"
+        android:text="Ajouter"
+        android:layout_gravity="center"
         android:textColor="#fff"
         android:background="@color/colorPrimary"
         android:id="@+id/ajouter"
@@ -99,13 +76,5 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-    </GridLayout>
-    <!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pré-remplir"
-        android:id="@+id/b_prereremplir"
-        android:onClick="preRemplir" />
-    !-->
+
 </LinearLayout>

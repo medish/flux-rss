@@ -13,7 +13,8 @@ tools:context=".activities.ListFlux">
     android:layout_width="match_parent"
     android:layout_height= "0dp"
     android:layout_weight="1"
-    tools:listitem="@layout/flux_item_layout"/>
+    tools:listitem="@layout/flux_item_layout"
+    android:background="@color/items_background"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +26,9 @@ tools:context=".activities.ListFlux">
         android:layout_height="wrap_content"
         android:onClick="downloadFluxAction"
         android:background="@color/colorPrimary"
-        android:text="Download"
-        android:layout_weight="1"/>
+        android:text="Télécharger"
+        android:layout_weight="1"
+        android:textColor="#FFF"/>
 
     <Button
         android:id="@+id/scheduleButton"
@@ -35,7 +37,8 @@ tools:context=".activities.ListFlux">
         android:onClick="downloadFluxAction"
         android:background="@color/colorAccent"
         android:text="Plannifier"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:textColor="#FFF"/>
 
         </LinearLayout>
 
