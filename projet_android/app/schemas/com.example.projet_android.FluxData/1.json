@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d5b791a513f103a2a690332a84cb210f",
+    "identityHash": "63702f4a9ae6041094288a88d8c2dffc",
     "entities": [
       {
         "tableName": "Flux",
@@ -118,6 +118,14 @@
               "pubDate"
             ],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Info_pubDate` ON `${TABLE_NAME}` (`pubDate`)"
+          },
+          {
+            "name": "index_Info_fluxid",
+            "unique": false,
+            "columnNames": [
+              "fluxid"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Info_fluxid` ON `${TABLE_NAME}` (`fluxid`)"
           }
         ],
         "foreignKeys": [
@@ -138,7 +146,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd5b791a513f103a2a690332a84cb210f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '63702f4a9ae6041094288a88d8c2dffc')"
     ]
   }
 }

@@ -131,7 +131,7 @@ class ListFlux : AppCompatActivity() {
     }
 
     private val onTimePickListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-        Toast.makeText(this@ListFlux, "Hour: $hourOfDay - Minute: $minute", Toast.LENGTH_LONG).show()
+        Toast.makeText(this@ListFlux, "Alarme à : ${hourOfDay}H$minute", Toast.LENGTH_SHORT).show()
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)

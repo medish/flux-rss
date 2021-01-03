@@ -23,7 +23,7 @@
     <string-array name="publication_date">
         <item>Toujours</item>
         <item>Aujoud\'hui</item>
-        <item>Cette semaine</item>
+        <item>Depuis hier</item>
     </string-array>
 
     <string-array name="filter_etat">

@@ -55,7 +55,7 @@ class ListInfo : AppCompatActivity(){
                 firstVisibleItem = first
                 lastVisibleItem  = last
                 //Log.i("ACTIVITY-CONSULTED", "FIRST $first  LAST $last")
-                recyclerView.itemAnimator = null
+                //recyclerView.itemAnimator = null
                 recyclerViewAdapter.changeInfosEtat(first, last)
             }
         })
@@ -100,7 +100,8 @@ class ListInfo : AppCompatActivity(){
         })
 
         searchView.setOnCloseListener {
-            Toast.makeText(applicationContext, "CLOSED", Toast.LENGTH_LONG).show()
+            lsinfo = infoModel.allInfo()
+            recyclerViewAdapter.setListInfo(lsinfo)
             false
         }
         return true
@@ -129,23 +130,42 @@ class ListInfo : AppCompatActivity(){
                 //Toast.makeText(this@ListInfo,"DIALOGUE OK- $sortId", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Annuler"){_,_ ->}
-            .create()
-            .show()
+        val alertDialog = dialogBuilder.create()
+
+        alertDialog.show()
     }
 
-    private fun filterSearchDialog(sortPos : Int, pubDatePos : Int, filtrePos : Int){
-        // Sort
-        // 0 -> ORDER BY Date DESC
-        // 1 -> ORDER BY Date ASC
+    private fun filterSearchDialog(recentSort : Int, pubDatePos : Int, consultSort : Int){
 
-        // pubDate
-        // 0 -> NO
-        // 1 -> Ard
-        // 2 -> Semaine
+        val sortFilter =
+            when(recentSort){
+                0 -> "'DESC"
+                1 -> null
+                else -> null
+            }
 
-        // etat nouveau
-        // 0 -> NO
-        // 1 -> etat = true
+        val sortPubDate =
+            when(pubDatePos){
+                0 -> "-1000 days"
+                1 -> "-0 days"
+                2 -> "-1 days"
+                else -> "-1000 days"
+            }
+
+        val sortNouveauFilter =
+            when(consultSort){
+                0 -> ""
+                1 -> "1"
+                else -> ""
+            }
+
+
+        val ids = recyclerViewAdapter.lsInfo.mapNotNull { if(it.isConsulted) it.id else null}
+        if(ids.isNotEmpty()) infoModel.changeEtatInfo(ids)
+
+        lsinfo = infoModel.filterQuery(sortFilter, sortPubDate, sortNouveauFilter)
+        recyclerViewAdapter.setListInfo(lsinfo)
+
     }
 
 

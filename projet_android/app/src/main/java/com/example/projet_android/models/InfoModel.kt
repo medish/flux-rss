@@ -109,6 +109,24 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         return lsinfo
     }
 
+    fun filterQuery(sortFilter : String?, sortPubDate : String, sortNouveauFilter : String) : List<Info> {
+        var lsinfo = emptyList<Info>()
+        val tr = Thread{
+
+            try{
+                lsinfo = infoDao.filterQuery(sortFilter, sortPubDate, sortNouveauFilter)
+            }
+            catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+        }
+        tr.start()
+        tr.join()
+        return lsinfo
+
+    }
+
+
     fun delete(id:Long){
         val tr = Thread{
 

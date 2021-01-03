@@ -18,6 +18,7 @@ data class Info(
     var description:String,
     var link: String,
     var nouveau:Boolean,
+    @ColumnInfo(index = true)
     var fluxid: Long,
     @TypeConverters(DateConverter::class)
     var pubDate : Date,
@@ -34,7 +35,7 @@ data class Info(
 
   class DateConverter{
     companion object {
-        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm") as DateFormat
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") as DateFormat
         private val rssFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z") as DateFormat
 
     }
