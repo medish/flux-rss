@@ -61,6 +61,19 @@ class InfoModel(application: Application) : AndroidViewModel(application) {
         tr.join()
     }
 
+    fun changeEtatInfo(ids : List<Long>){
+        val tr = Thread{
+
+            try{
+                infoDao.changeEtatInfo(ids)
+            } catch(e : SQLiteException){
+                Log.e("SQL_ERREUR",e.toString())
+            }
+        }
+        tr.start()
+        tr.join()
+    }
+
     fun nouveau():List<Info>{
         var lsinfo = emptyList<Info>()
 

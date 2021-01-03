@@ -52,8 +52,8 @@ class ListFlux : AppCompatActivity() {
         fluxModel = ViewModelProvider(this).get(FluxModel::class.java)
         lsFlux = fluxModel.allflux()
 
-        recyclerView.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = recyclerViewAdapter
+        recyclerViewFlux.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
+        recyclerViewFlux.adapter = recyclerViewAdapter
 
         fluxModel.allfluxs.observe(this, Observer {
             recyclerViewAdapter.setListFlux(it)
@@ -61,7 +61,7 @@ class ListFlux : AppCompatActivity() {
 
         // swipe to delete a flux
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        itemTouchHelper.attachToRecyclerView(recyclerViewFlux)
 
         // register a filter to cancel downloads
         val cancelFilter = IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
@@ -235,9 +235,6 @@ class ListFlux : AppCompatActivity() {
 
         }
     }
-
-
-
 }
 
 

@@ -27,6 +27,9 @@ interface InfoDao {
     @Query("UPDATE Info SET nouveau = 0 WHERE id = :id")
     fun changeEtatInfo(id:Long)
 
+    @Query("Update Info SET nouveau = 0 WHERE id IN(:ids)")
+    fun changeEtatInfo(ids : List<Long>)
+
     @Query("SELECT * FROM Info WHERE title LIKE :s OR description LIKE :s")
     fun recherche(s:String): List<Info>
 

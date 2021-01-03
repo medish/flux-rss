@@ -13,4 +13,23 @@
     <string name="download_notif_content">Cliquer pour voir les nouveautés</string>
     <string name="alarm_notif_title">Rss alarm</string>
     <string name="alarm_notif_content">Cliquer pour annuler l\'alarme</string>
+
+
+    <string-array name="sort">
+        <item>Les plus récents</item>
+        <item>Les plus anciens</item>
+    </string-array>
+
+    <string-array name="publication_date">
+        <item>Toujours</item>
+        <item>Aujoud\'hui</item>
+        <item>Cette semaine</item>
+    </string-array>
+
+    <string-array name="filter_etat">
+        <item>Tous</item>
+        <item>Nouveaux</item>
+    </string-array>
+
+
 </resources>
